@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos services - Zoo Arcadia{% endblock %}
+
+{% block body %}
+    <div class="hero-scene text-center text-white bg-primary py-5">
+        <div class="hero-scene-content">
+            <h1>Nos services</h1>
+            <p>Découvrez tout ce que nous offrons</p>
+        </div>
+    </div>
+
+    <div class="container p-4 bg-light">
+        <div class="row row-cols-2 row-cols-lg-3" id="service-container">
+            <!-- Les services seront affichés ici -->
+            {% for service in services %}
+                <div class="col p-3">
+                    <div class="card bg-dark text-white">
+                        <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service.name }}</h5>
+                            <p class="card-text">{{ service.description }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light">Show</a>
+                                <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-light">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No records found</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container text-center mt-4">
+        <a href="{{ path('app_services_new') }}" class="btn btn-primary">Create new</a>
+    </div>
+{% endblock %}

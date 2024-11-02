@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/scss/main.css" />
+    <title>Zoo Arcadia</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><i class="bi bi-tree"></i> Zoo Arcadia</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/informations">Informations utiles</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Nos services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/habitats">Nos habitats</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/animals">Nos animaux</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/comments">Vos avis</a></li>
+                        <li class="nav-item" data-show="connected"><a class="nav-link" href="/account">Mon compte</a></li>
+                        <li class="nav-item" data-show="disconnected"><a class="nav-link" href="/signin">Connexion</a></li>
+                        <li class="nav-item" data-show="connected"><button class="nav-link" id="signout-btn">Deconnexion</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="main-page">
+        <!-- Le contenu de /pages/home.html sera chargé ici -->
+    </main>
+    <footer class="bg-dark text-white text-center footer">
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <h3 class="text-primary">Nos horaires</h3>
+                <p>Lundi - Vendredi : 09:00 - 17:00</p>
+            </div>
+            <div class="col-6 col-lg-4">
+                <h3 class="text-primary">Notre adresse</h3>
+                <p>Zoo Arcadia <br/>
+                    5, route de Rennes <br/>
+                    31000 Brocéliande, France <br/>
+                </p>
+            </div>
+            <div class="col-6 col-lg-4">
+                <h3 class="text-primary">Nous contacter</h3>
+                <p>Téléphone : 04 01 01 01 01 <br/>
+                  Email : contact@zoo-arcadia.com <br />
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="/frontend/js/script.js"></script>
+    <script src="/frontend/js/services.js"></script>
+    <script src="/frontend/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script type="module" src="/frontend/Router/Router.js"></script>
+</body>
+</html>

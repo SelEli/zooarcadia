@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos informations utiles - Zoo Arcadia{% endblock %}
+
+{% block body %}
+    <div class="hero-scene text-center text-white bg-primary py-5">
+        <div class="hero-scene-content">
+            <h1>Informations et contact</h1>
+            <p>Tout ce que vous devez savoir avant votre visite</p>
+        </div>
+    </div>
+
+    <div class="container p-4">
+        <article class="bg-secondary text-black text-center mb-4">
+            <div class="container p-4">
+                <div class="row">
+                    <h2 class="text-primary">Nous contacter</h2>
+                    <div class="col-12 col-lg-12">
+                        {% for informations in informations %}
+                            <p>Adresse postale : {{ informations.contactAddress }}</p>
+                            <p>Téléphone : {{ informations.contactPhone }}</p>
+                            <p>Email : {{ informations.contactEmail }}</p>
+                            <div class="d-flex justify-content-center mt-2">
+                                <a href="{{ path('app_informations_edit', {'id': informations.id}) }}" class="btn btn-outline-primary mx-2">Éditer</a>
+                                <a href="{{ path('app_informations_delete', {'id': informations.id}) }}" class="btn btn-outline-danger mx-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette information ?');">Supprimer</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-dark text-white text-center mb-4">
+            <div class="container p-4">
+                <div class="row">
+                    <h2 class="text-primary">Nos horaires</h2>
+                    <div class="col-12 col-lg-12">
+                        {% for informations in informations %}
+                            <p>{{ informations.openingDays }} : {{ informations.openingHours }}</p>
+                            <div class="d-flex justify-content-center mt-2">
+                                <a href="{{ path('app_informations_edit', {'id': informations.id}) }}" class="btn btn-outline-primary mx-2">Éditer</a>
+                                <a href="{{ path('app_informations_delete', {'id': informations.id}) }}" class="btn btn-outline-danger mx-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette information ?');">Supprimer</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-secondary text-black text-center mb-4">
+            <div class="container p-4">
+                <div class="row">
+                    <h2 class="text-primary">Nos tarifs</h2>
+                    <div class="col-12 col-lg-12">
+                        {% for informations in informations %}
+                            <p>Adulte : {{ informations.adultPrice }}</p>
+                            <p>Enfant (3-12 ans) : {{ informations.childPrice }}</p>
+                            <p>Moins de 3 ans : {{ informations.toddlerPrice }}</p>
+                            <p>Famille (2 adultes + 2 enfants) : {{ informations.familyPrice }}</p>
+                            <p>Groupe (à partir de 8 personnes) : {{ informations.groupPrice }} par personne</p>
+                            <div class="d-flex justify-content-center mt-2">
+                                <a href="{{ path('app_informations_edit', {'id': informations.id}) }}" class="btn btn-outline-primary mx-2">Éditer</a>
+                                <a href="{{ path('app_informations_delete', {'id': informations.id}) }}" class="btn btn-outline-danger mx-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette information ?');">Supprimer</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-dark text-white text-center mb-4">
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <h3 class="text-primary">Notre adresse</h3>
+                        {% for informations in informations %}
+                            <p>Adresse : {{ informations.contactAddress }}</p>
+                            <p>Stationnement : {{ informations.parkingInfo }}</p>
+                            <div class="d-flex justify-content-center mt-2">
+                                <a href="{{ path('app_informations_edit', {'id': informations.id}) }}" class="btn btn-outline-primary mx-2">Éditer</a>
+                                <a href="{{ path('app_informations_delete', {'id': informations.id}) }}" class="btn btn-outline-danger mx-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette information ?');">Supprimer</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="text-center">
+            <a href="{{ path('app_informations_new') }}" class="btn btn-primary">Créer nouveau</a>
+        </div>
+    </div>
+{% endblock %}

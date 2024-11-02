@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations{% endblock %}
+
+{% block body %}
+    <h1>Informations</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ information.id }}</td>
+            </tr>
+            <tr>
+                <th>ContactAddress</th>
+                <td>{{ information.contactAddress }}</td>
+            </tr>
+            <tr>
+                <th>ContactPhone</th>
+                <td>{{ information.contactPhone }}</td>
+            </tr>
+            <tr>
+                <th>ContactEmail</th>
+                <td>{{ information.contactEmail }}</td>
+            </tr>
+            <tr>
+                <th>OpeningDays</th>
+                <td>{{ information.openingDays }}</td>
+            </tr>
+            <tr>
+                <th>OpeningHours</th>
+                <td>{{ information.openingHours }}</td>
+            </tr>
+            <tr>
+                <th>AdultPrice</th>
+                <td>{{ information.adultPrice }}</td>
+            </tr>
+            <tr>
+                <th>ChildPrice</th>
+                <td>{{ information.childPrice }}</td>
+            </tr>
+            <tr>
+                <th>ToddlerPrice</th>
+                <td>{{ information.toddlerPrice }}</td>
+            </tr>
+            <tr>
+                <th>FamilyPrice</th>
+                <td>{{ information.familyPrice }}</td>
+            </tr>
+            <tr>
+                <th>GroupPrice</th>
+                <td>{{ information.groupPrice }}</td>
+            </tr>
+            <tr>
+                <th>ParkingInfo</th>
+                <td>{{ information.parkingInfo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_informations_index') }}">back to list</a>
+
+    <a href="{{ path('app_informations_edit', {'id': information.id}) }}">edit</a>
+
+    {{ include('informations/_delete_form.html.twig') }}
+{% endblock %}

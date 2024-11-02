@@ -1,0 +1,77 @@
+<div class="hero-scene text-center text-white">
+    <div class="hero-scene-content">
+        <h1>Nos animaux</h1>
+        <p>Découvrez tout ce que nous offrons</p>
+    </div>
+</div>
+
+<div class="container p-4">
+
+    <div class="row row-cols-2 row-cols-lg-3">
+        <div class="col p-3">
+            <div class="image-card text-white">
+                <img src="../images/vue-zoo.jpg" class="rounded w-100" alt="Titre"/>
+                <p class="titre-image">Titre</p>
+                <p>Le petit train du zoo est une manière amusante et relaxante de découvrir tout ce que notre parc a à offrir. Conçu pour toutes les générations, le petit train circule à travers les habitats des animaux, offrant des vues imprenables et des anecdotes intéressantes sur nos résidents à plumes, à poils et à écailles. <br />
+                    Profitez du confort tout en découvrant le zoo d’une manière unique et mémorable !</p>
+                <div class="action-image-buttons">
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionPhotoModal"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeletePhotoModal"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col p-3">
+            <div class="image-card text-white">
+                <img src="../images/vue-zoo.jpg" class="rounded w-100" alt="Titre"/>
+                <p class="titre-image">Titre</p>
+                <p>Le petit train du zoo est une manière amusante et relaxante de découvrir tout ce que notre parc a à offrir. Conçu pour toutes les générations, le petit train circule à travers les habitats des animaux, offrant des vues imprenables et des anecdotes intéressantes sur nos résidents à plumes, à poils et à écailles. <br />
+                    Profitez du confort tout en découvrant le zoo d’une manière unique et mémorable !</p>
+                <div class="action-image-buttons">
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionPhotoModal"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeletePhotoModal"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col p-3">
+            <div class="image-card text-white">
+                <img src="../images/vue-zoo.jpg" class="rounded w-100" alt="Titre"/>
+                <p class="titre-image">Titre</p>
+                <p>Le petit train du zoo est une manière amusante et relaxante de découvrir tout ce que notre parc a à offrir. Conçu pour toutes les générations, le petit train circule à travers les habitats des animaux, offrant des vues imprenables et des anecdotes intéressantes sur nos résidents à plumes, à poils et à écailles. <br />
+                    Profitez du confort tout en découvrant le zoo d’une manière unique et mémorable !</p>
+                <div class="action-image-buttons">
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionPhotoModal"><i class="bi bi-pencil-square"></i></button>
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeletePhotoModal"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <!— Ajouter d’autres images —>
+    </div>
+
+    <!-- Modal edition -->
+    <div class="modal fade" id="EditionPhotoModal" tabindex="-1" aria-labelledby="EditionPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h2 class="modal-title fs-5" id="EditionPhotoModalLabel">Edition Photo</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                    <label for="NamePhotoInput" class="form-label">Titre</label>
+                    <input type="text" class="form-control" id="NamePhotoInput" placeholder="Lasagnes à la bolognese" name="Titre"> 
+                    </div>
+                    <div class="mb-3">
+                    <label for="ImageInput" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="ImageInput"  name="Image">
+                    </div>
+                    <div class="text-center pt-3">
+                        <button type="button" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>

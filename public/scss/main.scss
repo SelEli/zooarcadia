@@ -1,0 +1,86 @@
+@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+@import 'custom';
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+main {
+    margin-bottom: 250px;
+}
+
+footer.footer {
+    padding: 15px;
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+}
+
+p{
+    font-family: $font-family-text;
+    font-size: 18px;
+}
+
+.hero-scene {
+    position: relative;
+    margin-bottom: 100px;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(../images/vue-zoo.jpg);
+        background-size: cover;
+        background-position: center bottom;
+        filter: brightness(0.3);
+    }
+
+    * {
+        position: relative;
+    }
+
+    .hero-scene-content {
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+.image-card{
+    position:relative;
+    &:hover{
+        .titre-image,
+        .action-image-buttons{
+            opacity: 1;
+        }
+    }
+
+
+    .action-image-buttons{
+        position : absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+
+        opacity: 0;
+        transition: all 0.3s;
+    }
+}
+
+.form-label {
+    color: $primary;
+}
+
+.bg-secondary {
+    background-color: $secondary;
+}

@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Zoo Arcadia{% endblock %}
+
+{% block body %}
+<div class="hero-scene text-center text-white">
+    <div class="hero-scene-content">
+        <h1>Bienvenue au Zoo Arcadia</h1>
+        <p class="w-50 mx-auto">
+            Découvrez un univers où la nature et la faune coexistent harmonieusement.
+            <br />
+            Au cœur de la forêt de Brocéliande, notre zoo s'étend sur plusieurs hectares et abrite une diversité d'animaux exotiques et locaux dans des habitats recréés avec soin pour leur confort et leur bien-être.
+        </p>
+    </div>
+</div>
+
+<div class="container p-4">
+
+    <article class="bg-secondary text-black text-center">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-primary">Nos horaires</h3>
+                    <p>Lundi - Vendredi : 09:00 - 17:00</p>
+                </div>
+                <div class="col-12">
+                    <h3 class="text-primary">Notre adresse</h3>
+                    <p>Zoo Arcadia <br/>
+                        5, route de Rennes <br/>
+                        31000 Brocéliande, France <br/>
+                    </p>
+                </div>
+                <div class="col-12">
+                    <h3 class="text-primary">Nos tarifs</h3>
+                    <p>Adulte : 15€ <br />
+                        Enfant (3-12 ans) : 10 €  <br />
+                        Moins de 3 ans : Gratuit  <br />
+                        Famille (2 adultes + 2 enfants) : 40 € <br />
+                    </p>
+                </div>
+            </div>
+            <div class="text-center pt-4">
+                <a href="/informations" class="btn btn-primary">Plus d'informations utiles</a>
+            </div>
+        </div>
+    </article>
+
+    <article class="bg-dark text-white text-center">
+        <div class="container p-4">
+            <h2 class="text-primary">Nos services</h2>
+            <div class="row row-cols-3 align-items-center">
+                <div class="col">
+                    <p class="text-justify">
+                        Découvrez la richesse des saveurs avec nos plats élaborés à partir de produits frais et de saison, cueillis localement.
+                    </p>
+                </div>
+                <div class="col">
+                    <img class="w-100 rounded" src="../images/safari-train.jpg"/>
+                </div>
+                <div class="col">
+                    <p class="">...</p>
+                </div>
+            </div>
+            <div class="text-center pt-4">
+                <a href="/services" class="btn btn-primary">Voir nos services</a>
+            </div>
+        </div>
+    </article>
+
+    <article class="bg-secondary text-black text-center">
+        <div class="containter p-4">
+            <div id="carouselHabitatsCaptions" class="carousel slide container p-4" data-bs-ride="carousel">
+                <h2 class="text-primary">Nos habitats</h2>
+                <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Second slide label</h5>
+                    <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Third slide label</h5>
+                    <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="text-center pt-4">
+                <a href="/habitats" class="btn btn-primary">Voir nos habitats</a>
+            </div>       
+        </div>
+    </article>
+
+    <article class="bg-dark text-white text-center">
+        <div class="container p-4">
+            <div id="carouselAnimalsCaptions" class="carousel slide container p-4" data-bs-ride="carousel">
+                <h2 class="text-center text-primary">Nos animaux</h2>
+                <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Second slide label</h5>
+                    <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Third slide label</h5>
+                    <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button>      
+            </div>
+
+            <div class="text-center pt-4">
+                <a href="/animals" class="btn btn-primary">Voir nos animaux</a>
+            </div>       
+        </div>
+    </article>
+
+    <article class="bg-secondary text-black">
+        <div class="container p-4">
+            <h2 class="text-center text-primary">Avis des visiteurs</h2>
+            <div id="commentCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex flex-column align-items-center">
+                            <blockquote class="blockquote">
+                                <p>"Incroyable expérience ! Les animaux sont bien soignés."</p>
+                            </blockquote>
+                            <footer class="blockquote-footer">Jean Dupont</footer>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex flex-column align-items-center">
+                            <blockquote class="blockquote">
+                                <p>"Une journée fantastique pour toute la famille. Recommandé !"</p>
+                            </blockquote>
+                            <footer class="blockquote-footer">Marie Curie</footer>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex flex-column align-items-center">
+                            <blockquote class="blockquote">
+                                <p>"Des habitats magnifiquement recréés pour les animaux."</p>
+                            </blockquote>
+                            <footer class="blockquote-footer">Albert Einstein</footer>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#commentCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#commentCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            
+            
+            <div class="text-center pt-3">
+                <a href="/comments" class="btn btn-primary">Laisser un avis</a>
+            </div>
+        </div>
+    </article>
+
+</div>
+
+{% endblock %}
