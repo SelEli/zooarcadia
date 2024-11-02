@@ -3,37 +3,36 @@
 {% block title %}Habitats index{% endblock %}
 
 {% block body %}
-    <h1>Habitats index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Comment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for habitat in habitats %}
-            <tr>
-                <td>{{ habitat.id }}</td>
-                <td>{{ habitat.name }}</td>
-                <td>{{ habitat.description }}</td>
-                <td>{{ habitat.comment }}</td>
-                <td>
-                    <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}">show</a>
-                    <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_habitats_new') }}">Create new</a>
+<article class="bg-secondary text-black text-center">
+    <div class="container p-4">
+        <h2 class="text-primary">Nos habitats</h2>
+        <div id="carouselHabitatsCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for habitat in habitats %}
+                    <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for habitat in habitats %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="Image de l'habitat {{ habitat.name }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ habitat.name }}</h5>
+                            <p>{{ habitat.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</article>
+<a href="{{ path('app_habitats_new') }}">Create new</a>
 {% endblock %}

@@ -1,43 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos animaux - Zoo Arcadia{% endblock %}
+{% block title %}Animals index{% endblock %}
 
 {% block body %}
-    <div class="hero-scene text-center text-white bg-primary py-5">
-        <div class="hero-scene-content">
-            <h1>Nos animaux</h1>
-            <p>Découvrez tous nos pensionnaires</p>
-        </div>
-    </div>
+    <h1>Animals index</h1>
 
-    <div class="container p-4 bg-light">
-        <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
-            <!-- Les animaux seront affichés ici -->
-            {% for animal in animals %}
-                <div class="col p-3">
-                    <div class="card bg-dark text-white">
-                        <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ animal.name }}"/>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ animal.name }}</h5>
-                            <p class="card-text">{{ animal.state }}</p>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-outline-light">Show</a>
-                                <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-outline-light">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-12">
-                    <p class="text-center">No records found</p>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for animal in animals %}
+            <tr>
+                <td>{{ animal.id }}</td>
+                <td>{{ animal.name }}</td>
+                <td>{{ animal.description }}</td>
+                <td>{{ animal.state }}</td>
+                <td>
+                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
+                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <div class="container text-center mt-4">
-        <a href="{{ path('app_animals_new') }}" class="btn btn-primary">Create new</a>
-    </div>
-
-
+    <a href="{{ path('app_animals_new') }}">Create new</a>
 {% endblock %}

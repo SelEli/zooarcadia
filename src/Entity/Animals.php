@@ -17,13 +17,10 @@ class Animals
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $state = null;
-
-    #[ORM\ManyToOne(inversedBy: 'animals')]
-    private ?Races $race = null;
-
-    #[ORM\ManyToOne(inversedBy: 'animals')]
-    private ?Habitats $habitat = null;
 
     public function getId(): ?int
     {
@@ -42,38 +39,26 @@ class Animals
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     public function getState(): ?string
     {
         return $this->state;
     }
 
-    public function setState(string $state): static
+    public function setState(?string $state): static
     {
         $this->state = $state;
-
-        return $this;
-    }
-
-    public function getRace(): ?Races
-    {
-        return $this->race;
-    }
-
-    public function setRace(?Races $race): static
-    {
-        $this->race = $race;
-
-        return $this;
-    }
-
-    public function getHabitat(): ?Habitats
-    {
-        return $this->habitat;
-    }
-
-    public function setHabitat(?Habitats $habitat): static
-    {
-        $this->habitat = $habitat;
 
         return $this;
     }
