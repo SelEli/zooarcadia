@@ -23,8 +23,10 @@
                 <td>{{ animal.description }}</td>
                 <td>{{ animal.state }}</td>
                 <td>
-                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
-                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
+                        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -35,5 +37,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_animals_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_animals_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

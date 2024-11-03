@@ -24,11 +24,17 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
 
-        - { path: ^/tasks, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] }
-        - { path: ^/tasks/new$, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] }
-        - { path: ^/tasks/\d+/edit$, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] }
-        - { path: ^/tasks/\d+/delete$, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] }
-        - { path: ^/tasks/\d+$, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] } # Pour show
+        - { path: ^/comments$, roles: PUBLIC_ACCESS }
+        - { path: ^/comments/new$, roles: PUBLIC_ACCESS }
+        - { path: ^/comments/\d+$, roles: IS_AUTHENTICATED_FULLY } # Pour show
+        - { path: ^/comments/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/comments/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/tasks, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tasks/new$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tasks/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tasks/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tasks/\d+$, roles: IS_AUTHENTICATED_FULLY } # Pour show
 
         # Règles générales pour toutes les autres routes
         - { path: ^/.*/new$, roles: ROLE_ADMIN }
@@ -36,11 +42,10 @@ security:
         - { path: ^/.*/\d+/delete$, roles: ROLE_ADMIN }
         - { path: ^/.*/\d+$, roles: ROLE_ADMIN } # Exemple pour show
 
-        - { path: ^/profile, roles: [ROLE_ADMIN, ROLE_VETERINARIAN, ROLE_EMPLOYEE] }
+        - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/role, roles: ROLE_ADMIN }
-
 
 
 
