@@ -21,8 +21,10 @@
                             <h5 class="card-title">{{ service.name }}</h5>
                             <p class="card-text">{{ service.description }}</p>
                             <div class="d-flex justify-content-between">
-                                <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light">Show</a>
-                                <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-light">Edit</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light">Show</a>
+                                    <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-light">Edit</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -35,7 +37,10 @@
         </div>
     </div>
 
-    <div class="container text-center mt-4">
-        <a href="{{ path('app_services_new') }}" class="btn btn-primary">Create new</a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="container text-center mt-4">
+            <a href="{{ path('app_services_new') }}" class="btn btn-primary">Create new</a>
+        </div>
+    {% endif %}
 {% endblock %}
+

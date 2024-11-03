@@ -24,7 +24,6 @@ final class ServicesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_services_new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $service = new Services();

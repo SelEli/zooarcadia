@@ -32,6 +32,9 @@ class Tasks
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     private ?Animals $animal = null;
 
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Tasks
     public function setAnimal(?Animals $animal): static
     {
         $this->animal = $animal;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
