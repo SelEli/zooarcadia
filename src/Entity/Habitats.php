@@ -30,9 +30,19 @@ class Habitats
     #[ORM\OneToMany(targetEntity: Animals::class, mappedBy: 'habitat')]
     private Collection $animals;
 
+    /**
+     * @var Collection<int, Images>
+     */
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Images::class)]
+    private Collection $images;
+
+    #[ORM\ManyToOne(inversedBy: 'habitats')]
+    private ?Images $image = null;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,7 +58,6 @@ class Habitats
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -60,7 +69,6 @@ class Habitats
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -72,7 +80,6 @@ class Habitats
     public function setComment(?string $comment): static
     {
         $this->comment = $comment;
-
         return $this;
     }
 
@@ -84,25 +91,26 @@ class Habitats
         return $this->animals;
     }
 
-    public function addAnimal(Animals $animal): static
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
     {
-        if (!$this->animals->contains($animal)) {
-            $this->animals->add($animal);
-            $animal->setHabitat($this);
-        }
+        return $this->images;
+    }
+
+    public function getImage(): ?Images
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Images $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
 
-    public function removeAnimal(Animals $animal): static
-    {
-        if ($this->animals->removeElement($animal)) {
-            // set the owning side to null (unless already changed)
-            if ($animal->getHabitat() === $this) {
-                $animal->setHabitat(null);
-            }
-        }
 
-        return $this;
-    }
 }

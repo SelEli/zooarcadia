@@ -18,8 +18,8 @@
             {% for habitat in habitats %}
                 <div class="col p-3">
                     <div class="card bg-dark text-white">
-                        {% if habitat.images|length > 0 %}
-                            <img src="{{ habitat.images[0].url }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
+                        {% if habitat.image %}
+                            <img src="{{ habitat.image.url }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ habitat.name }}</h5>
@@ -33,7 +33,11 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
+    
+    <div class="bg-white py-4"></div>
 
+    <div class="container p-4 bg-secondary text-white">
         <h2 class="text-primary">Nos Services</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="service-container">
             <!-- Les services seront affichés ici -->
@@ -53,7 +57,11 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
 
+    <div class="bg-white py-4"></div>
+
+    <div class="container p-4 bg-dark text-white">
         <h2 class="text-primary">Nos Animaux</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
             <!-- Les animaux seront affichés ici -->
@@ -73,7 +81,48 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
 
+    <div class="bg-white py-4"></div>
+
+    <div class="container p-4 bg-secondary text-black">
+        <h2 class="text-primary">Informations Utiles</h2>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <h3>Contact</h3>
+                {% for informations in informations %}
+                    <p>Adresse : {{ informations.contactAddress }}</p>
+                    <p>Téléphone : {{ informations.contactPhone }}</p>
+                    <p>Email : {{ informations.contactEmail }}</p>
+                {% endfor %}
+            </div>
+            <div class="col-12 col-lg-6">
+                <h3>Horaires</h3>
+                {% for informations in informations %}
+                    <p>{{ informations.openingDays }} : {{ informations.openingHours }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h3>Tarifs</h3>
+                {% for informations in informations %}
+                    <p>Adulte : {{ informations.adultPrice }}</p>
+                    <p>Enfant (3-12 ans) : {{ informations.childPrice }}</p>
+                    <p>Moins de 3 ans : {{ informations.toddlerPrice }}</p>
+                    <p>Famille (2 adultes + 2 enfants) : {{ informations.familyPrice }}</p>
+                    <p>Groupe (à partir de 8 personnes) : {{ informations.groupPrice }} par personne</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('app_informations_index') }}" class="btn btn-outline-dark mt-2">Voir plus</a>
+        </div>
+    </div>
+
+    <div class="bg-white py-4"></div>
+
+    <div class="container p-4 bg-dark text-white">
         <h2 class="text-primary">Avis du Zoo</h2>
         <div class="row row-cols-1 row-cols-md-2">
             {% for comment in comments %}
@@ -90,6 +139,9 @@
                     <p class="text-center">No comments found</p>
                 </div>
             {% endfor %}
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('app_comments_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
         </div>
     </div>
 {% endblock %}

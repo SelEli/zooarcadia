@@ -22,6 +22,9 @@ class Animals
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $state = null;
 
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?Images $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Animals
     public function setState(?string $state): static
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getImage(): ?Images
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Images $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
