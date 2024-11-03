@@ -1,215 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Zoo Arcadia{% endblock %}
+{% block title %}Bienvenue au Zoo Arcadia{% endblock %}
 
 {% block body %}
-<div class="hero-scene text-center text-white">
-    <div class="hero-scene-content">
-        <h1>Bienvenue au Zoo Arcadia</h1>
-        <p class="w-50 mx-auto">
-            Découvrez un univers où la nature et la faune coexistent harmonieusement.
-            <br />
-            Au cœur de la forêt de Brocéliande, notre zoo s'étend sur plusieurs hectares et abrite une diversité d'animaux exotiques et locaux dans des habitats recréés avec soin pour leur confort et leur bien-être.
-        </p>
+    <div class="hero-scene text-center text-white bg-primary py-5">
+        <div class="hero-scene-content">
+            <h1>Bienvenue au Zoo Arcadia</h1>
+            <p>Découvrez notre zoo et nos valeurs écologiques</p>
+            <img src="../images/zoo-welcome.jpg" class="img-fluid" alt="Bienvenue au Zoo Arcadia">
+        </div>
     </div>
-</div>
 
-<div class="container p-4">
-
-    <article class="bg-secondary text-black text-center">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="text-primary">Nos horaires</h3>
-                    <p>Lundi - Vendredi : 09:00 - 17:00</p>
-                </div>
-                <div class="col-12">
-                    <h3 class="text-primary">Notre adresse</h3>
-                    <p>Zoo Arcadia <br/>
-                        5, route de Rennes <br/>
-                        31000 Brocéliande, France <br/>
-                    </p>
-                </div>
-                <div class="col-12">
-                    <h3 class="text-primary">Nos tarifs</h3>
-                    <p>Adulte : 15€ <br />
-                        Enfant (3-12 ans) : 10 €  <br />
-                        Moins de 3 ans : Gratuit  <br />
-                        Famille (2 adultes + 2 enfants) : 40 € <br />
-                    </p>
-                </div>
-            </div>
-            <div class="text-center pt-4">
-                <a href="/informations" class="btn btn-primary">Plus d'informations utiles</a>
-            </div>
-        </div>
-    </article>
-
-    <article class="bg-dark text-white text-center">
-        <div class="container p-4">
-            <h2 class="text-primary">Nos services</h2>
-            <div class="row row-cols-3 align-items-center">
-                <div class="col">
-                    <p class="text-justify">
-                        Découvrez la richesse des saveurs avec nos plats élaborés à partir de produits frais et de saison, cueillis localement.
-                    </p>
-                </div>
-                <div class="col">
-                    <img class="w-100 rounded" src="../images/safari-train.jpg"/>
-                </div>
-                <div class="col">
-                    <p class="">...</p>
-                </div>
-            </div>
-            <div class="text-center pt-4">
-                <a href="/services" class="btn btn-primary">Voir nos services</a>
-            </div>
-        </div>
-    </article>
-
-    <article class="bg-secondary text-black text-center">
-        <div class="containter p-4">
-            <div id="carouselHabitatsCaptions" class="carousel slide container p-4" data-bs-ride="carousel">
-                <h2 class="text-primary">Nos habitats</h2>
-                <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                    </div>
-                </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-
-            <div class="text-center pt-4">
-                <a href="/habitats" class="btn btn-primary">Voir nos habitats</a>
-            </div>       
-        </div>
-    </article>
-
-    <article class="bg-dark text-white text-center">
-        <div class="container p-4">
-            <div id="carouselAnimalsCaptions" class="carousel slide container p-4" data-bs-ride="carousel">
-                <h2 class="text-center text-primary">Nos animaux</h2>
-                <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                    </div>
-                </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselAnimalsCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-                </button>      
-            </div>
-
-            <div class="text-center pt-4">
-                <a href="/animals" class="btn btn-primary">Voir nos animaux</a>
-            </div>       
-        </div>
-    </article>
-
-    <article class="bg-secondary text-black">
-        <div class="container p-4">
-            <h2 class="text-center text-primary">Avis des visiteurs</h2>
-            <div id="commentCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex flex-column align-items-center">
-                            <blockquote class="blockquote">
-                                <p>"Incroyable expérience ! Les animaux sont bien soignés."</p>
-                            </blockquote>
-                            <footer class="blockquote-footer">Jean Dupont</footer>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-flex flex-column align-items-center">
-                            <blockquote class="blockquote">
-                                <p>"Une journée fantastique pour toute la famille. Recommandé !"</p>
-                            </blockquote>
-                            <footer class="blockquote-footer">Marie Curie</footer>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-flex flex-column align-items-center">
-                            <blockquote class="blockquote">
-                                <p>"Des habitats magnifiquement recréés pour les animaux."</p>
-                            </blockquote>
-                            <footer class="blockquote-footer">Albert Einstein</footer>
+    <div class="container p-4 bg-light">
+        <h2 class="text-primary">Nos Habitats</h2>
+        <div class="row row-cols-2 row-cols-lg-3" id="habitat-container">
+            <!-- Les habitats seront affichés ici -->
+            {% for habitat in habitats %}
+                <div class="col p-3">
+                    <div class="card bg-dark text-white">
+                        {% if habitat.images|length > 0 %}
+                            <img src="{{ habitat.images[0].url }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ habitat.name }}</h5>
+                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#commentCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#commentCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            
-            
-            <div class="text-center pt-3">
-                <a href="/comments" class="btn btn-primary">Laisser un avis</a>
-            </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No habitats found</p>
+                </div>
+            {% endfor %}
         </div>
-    </article>
 
-</div>
+        <h2 class="text-primary">Nos Services</h2>
+        <div class="row row-cols-2 row-cols-lg-3" id="service-container">
+            <!-- Les services seront affichés ici -->
+            {% for service in services %}
+                <div class="col p-3">
+                    <div class="card bg-dark text-white">
+                        <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service.name }}</h5>
+                            <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No services found</p>
+                </div>
+            {% endfor %}
+        </div>
 
+        <h2 class="text-primary">Nos Animaux</h2>
+        <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
+            <!-- Les animaux seront affichés ici -->
+            {% for animal in animals %}
+                <div class="col p-3">
+                    <div class="card bg-dark text-white">
+                        <img src="{{ animal.image }}" class="card-img-top" alt="{{ animal.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ animal.name }}</h5>
+                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No animals found</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="text-primary">Avis du Zoo</h2>
+        <div class="row row-cols-1 row-cols-md-2">
+            {% for comment in comments %}
+                <div class="col mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.name }}</h5>
+                            <p class="card-text">{{ comment.comment }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No comments found</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

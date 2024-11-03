@@ -19,6 +19,7 @@
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ habitat.name }}</h5>
                             <p>{{ habitat.description }}</p>
+                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-outline-light mt-2">Voir les animaux</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -36,6 +37,6 @@
 </article>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_habitats_new') }}">Create new</a>
+    <a href="{{ path('app_habitats_new') }}" class="btn btn-primary mt-4">Créer un nouvel habitat</a>
 {% endif %}
 {% endblock %}

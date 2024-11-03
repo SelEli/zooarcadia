@@ -11,25 +11,23 @@
     </div>
 
     <div class="container p-4 bg-light">
-        <div class="row row-cols-2 row-cols-lg-3" id="service-container">
+        <div class="row row-cols-1 row-cols-md-2 g-4" id="service-container">
             <!-- Les services seront affichés ici -->
             {% for service in services %}
-                <div class="col p-3">
-                    <div class="card bg-dark text-white">
+                <div class="col">
+                    <div class="card bg-dark text-white h-100">
                         <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
                         <div class="card-body">
                             <h5 class="card-title">{{ service.name }}</h5>
-                            <!-- Description cachée pour ne s'afficher que sur "Voir plus" -->
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light">Voir plus</a>
-                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
-                                    <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-primary">Editer</a>
-                                    <form method="post" action="{{ path('app_services_delete', {'id': service.id}) }}" style="display:inline;">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
-                                        <button type="submit" class="btn btn-outline-danger">Supprimer</button>
-                                    </form>
-                                {% endif %}
-                            </div>
+                            <!-- Pas de description affichée ici -->
+                            <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
+                                <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-primary mt-2">Editer</a>
+                                <form method="post" action="{{ path('app_services_delete', {'id': service.id}) }}" style="display:inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                                    <button type="submit" class="btn btn-outline-danger mt-2">Supprimer</button>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
