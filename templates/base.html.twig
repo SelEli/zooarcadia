@@ -35,14 +35,17 @@
                     <a class="nav-link" href="/animals">Nos animaux</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/races">Nos races</a>
+                    <a class="nav-link" href="/races">Nos espèces</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/comments">Vos avis</a>
+                    <a class="nav-link" href="/comments">Vos commentaires</a>
                   </li>
                   {% if app.user %}
                       <li class="nav-item">
                           <a class="nav-link" href="/tasks">Mes tâches</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/user">Mon compte</a>
                       </li>
                       <li class="nav-item">
                           <form method="post" action="{{ path('app_logout') }}">

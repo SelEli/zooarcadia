@@ -26,6 +26,12 @@ class Comments
     #[ORM\Column]
     private ?bool $isVisible = false; // Initialisation à false par défaut
 
+    public function __construct()
+    {
+        // Initialise la date à la date actuelle par défaut
+        $this->date = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
