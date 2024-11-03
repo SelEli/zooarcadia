@@ -1,20 +1,15 @@
 security:
     password_hashers:
-        Symfony\Component\Security\Core\User\InMemoryUser: # Utilisé pour les utilisateurs en mémoire
-            algorithm: bcrypt
         App\Entity\User:
             algorithm: auto
 
+
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:
-                        password: '$2y$13$eImiTXuWVxfM37uY4JANjQ=='
-                        roles: ROLE_USER
-                    admin:
-                        password: '$2y$13$eImiTXuWVxfM37uY4JANjQ=='
-                        roles: ROLE_ADMIN
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
 
     firewalls:
         main:
