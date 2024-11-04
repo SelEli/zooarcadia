@@ -23,6 +23,9 @@
                     <a class="nav-link" href="/">Accueil</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="/habitats">Nos habitats</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="/contact">Nous contacter</a>
                   </li>
                   <li class="nav-item">
@@ -32,28 +35,39 @@
                     <a class="nav-link" href="/services">Nos services</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/habitats">Nos habitats</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/animals">Nos animaux</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/races">Nos espèces</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="/comments">Vos commentaires</a>
                   </li>
                   {% if app.user %}
-                      <li class="nav-item">
-                          <a class="nav-link" href="/tasks">Mes tâches</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="/user">Mon compte</a>
-                      </li>
-                      <li class="nav-item">
-                          <form method="post" action="{{ path('app_logout') }}">
-                              <button class="nav-link btn btn-link">Déconnexion</button>
-                          </form>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Mon compte
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li><a class="dropdown-item" href="/tasks">Mes tâches</a></li>
+                              <li><a class="dropdown-item" href="/user">Mon compte</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/animals">Nos animaux</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/races">Nos espèces</a>
+                              </li>
+                              <li><hr class="dropdown-divider"></li>
+                              {% if is_granted('ROLE_ADMIN') %}
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="/roles">Gérer les rôles</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="/register">Créer un compte</a>
+                                  </li>
+                                  <li><hr class="dropdown-divider"></li>
+                              {% endif %}
+                              <li>
+                                  <form method="post" action="{{ path('app_logout') }}">
+                                      <button class="dropdown-item">Déconnexion</button>
+                                  </form>
+                              </li>
+                          </ul>
                       </li>
                   {% else %}
                       <li class="nav-item">
