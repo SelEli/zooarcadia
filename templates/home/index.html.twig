@@ -7,23 +7,21 @@
         <div class="hero-scene-content">
             <h1>Bienvenue au Zoo Arcadia</h1>
             <p>Découvrez notre zoo et nos valeurs écologiques</p>
-            <img src="../images/zoo-welcome.jpg" class="img-fluid" alt="Bienvenue au Zoo Arcadia">
         </div>
     </div>
 
-    <div class="container p-4 bg-light">
-        <h2 class="text-primary">Nos Habitats</h2>
+    <div class="container p-4 bg-dark">
+        <h2 class="text-primary text-center">Nos habitats</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="habitat-container">
             <!-- Les habitats seront affichés ici -->
             {% for habitat in habitats %}
                 <div class="col p-3">
-                    <div class="card bg-dark text-white">
+                    <div class="card bg-light text-black">
                         {% if habitat.image %}
                             <img src="{{ habitat.image.url }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ habitat.name }}</h5>
-                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -33,12 +31,15 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('app_habitats_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
+        </div>
     </div>
     
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-secondary text-white">
-        <h2 class="text-primary">Nos Services</h2>
+        <h2 class="text-primary text-center">Nos services</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="service-container">
             <!-- Les services seront affichés ici -->
             {% for service in services %}
@@ -62,16 +63,15 @@
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-dark text-white">
-        <h2 class="text-primary">Nos Animaux</h2>
+        <h2 class="text-primary text-center">Nos animaux</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
             <!-- Les animaux seront affichés ici -->
             {% for animal in animals %}
                 <div class="col p-3">
-                    <div class="card bg-dark text-white">
+                    <div class="card bg-light text-black">
                         <img src="{{ animal.image }}" class="card-img-top" alt="{{ animal.name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ animal.name }}</h5>
-                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -81,14 +81,17 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('app_animals_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
+        </div>
     </div>
 
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-secondary text-black">
-        <h2 class="text-primary">Informations Utiles</h2>
+        <h2 class="text-primary text-center">Informations utiles</h2>
         <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 text-center">
                 <h3>Contact</h3>
                 {% for informations in informations %}
                     <p>Adresse : {{ informations.contactAddress }}</p>
@@ -96,7 +99,7 @@
                     <p>Email : {{ informations.contactEmail }}</p>
                 {% endfor %}
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 text-center">
                 <h3>Horaires</h3>
                 {% for informations in informations %}
                     <p>{{ informations.openingDays }} : {{ informations.openingHours }}</p>
@@ -104,7 +107,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
                 <h3>Tarifs</h3>
                 {% for informations in informations %}
                     <p>Adulte : {{ informations.adultPrice }}</p>
@@ -123,7 +126,7 @@
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-dark text-white">
-        <h2 class="text-primary">Avis du Zoo</h2>
+        <h2 class="text-primary text-center">Vos commentaires</h2>
         <div class="row row-cols-1 row-cols-md-2">
             {% for comment in comments %}
                 <div class="col mb-3">
@@ -140,7 +143,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end text-center">
             <a href="{{ path('app_comments_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
         </div>
     </div>

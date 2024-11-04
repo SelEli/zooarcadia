@@ -1,42 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tasks{% endblock %}
+{% block title %}Nos habitats{% endblock %}
 
 {% block body %}
-    <h1>Tasks</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ task.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ task.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ task.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DueDate</th>
-                <td>{{ task.dueDate ? task.dueDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ task.status }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tasks_index') }}">back to list</a>
-
-    <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
-
-    {{ include('tasks/_delete_form.html.twig') }}
+    <div class="container p-4 bg-light">
+        <h1 class="text-primary">Nos Habitats</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for habitat in habitats %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if habitat.image %}
+                            <img src="{{ habitat.image.url }}" class="card-img-top" alt="{{ habitat.name }}">
+                        {% else %}
+                            <img src="placeholder.jpg" class="card-img-top" alt="{{ habitat.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ habitat.name }}</h5>
+                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-primary">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun habitat trouvé</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

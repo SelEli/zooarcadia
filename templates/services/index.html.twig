@@ -41,7 +41,7 @@
 
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
         <div class="container text-center mt-4">
-            <a href="{{ path('app_services_new') }}" class="btn btn-primary">Create new</a>
+            <a href="{{ path('app_services_new') }}" class="btn btn-primary">Créer un nouveau service</a>
         </div>
     {% endif %}
 {% endblock %}

@@ -14,6 +14,7 @@
                 <th>CreatedAt</th>
                 <th>DueDate</th>
                 <th>Status</th>
+                <th>Animal</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,18 +27,23 @@
                 <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ task.dueDate ? task.dueDate|date('Y-m-d') : '' }}</td>
                 <td>{{ task.status }}</td>
+                <td>{{ task.animal ? task.animal.name : 'N/A' }}</td>
                 <td>
-                    <a href="{{ path('app_tasks_show', {'id': task.id}) }}">show</a>
-                    <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
+                    <a href="{{ path('app_tasks_show', {'id': task.id}) }}" class="btn btn-outline-primary btn-sm">show</a>
+                    <a href="{{ path('app_tasks_edit', {'id': task.id}) }}" class="btn btn-outline-secondary btn-sm">edit</a>
+                    <form method="post" action="{{ path('app_tasks_delete', {'id': task.id}) }}" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">delete</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_tasks_new') }}">Create new</a>
+    <a href="{{ path('app_tasks_new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}
