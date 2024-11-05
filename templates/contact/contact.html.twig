@@ -3,8 +3,12 @@
 {% block title %}Contactez-nous - Zoo Arcadia{% endblock %}
 
 {% block body %}
+            <h1>Contactez-nous</h1>
+            <p>Nous vous répondons !</p>
+        </div>
+    </div>
+
     <div class="container p-4">
-        <h1>Contactez-nous</h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">

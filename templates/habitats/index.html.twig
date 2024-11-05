@@ -3,7 +3,10 @@
 {% block title %}Nos habitats{% endblock %}
 
 {% block body %}
-    <h1>Nos Habitats</h1>
+    <h1>Nos habitats</h1>
+            <p>Découvrez nos différents habitats et leurs pensionnaires</p>
+        </div>
+    </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <a href="{{ path('app_habitats_new') }}" class="btn btn-success mb-3">Ajouter un habitat</a>
     {% endif %}
