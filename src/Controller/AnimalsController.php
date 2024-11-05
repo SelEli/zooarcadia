@@ -33,7 +33,7 @@ final class AnimalsController extends AbstractController
             $entityManager->persist($animal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER); // Correction ici
+            return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('animals/new.html.twig', [
@@ -43,8 +43,12 @@ final class AnimalsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_animals_show', methods: ['GET'])]
-    public function show(Animals $animal): Response
+    public function show(Animals $animal, EntityManagerInterface $entityManager): Response
     {
+        // Incrémenter le compteur de clics
+        $animal->incrementClicks();
+        $entityManager->flush();
+
         return $this->render('animals/show.html.twig', [
             'animal' => $animal,
         ]);

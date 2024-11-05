@@ -18,17 +18,18 @@ class Habitats
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'habitats')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Images $image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Animals::class)]
     private Collection $animals;
-
-    #[ORM\ManyToOne(inversedBy: 'habitats')]
-    private ?Images $image = null;
 
     public function __construct()
     {
@@ -56,9 +57,20 @@ class Habitats
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getImage(): ?Images
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Images $image): static
+    {
+        $this->image = $image;
         return $this;
     }
 
@@ -79,16 +91,5 @@ class Habitats
     public function getAnimals(): Collection
     {
         return $this->animals;
-    }
-
-    public function getImage(): ?Images
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Images $image): static
-    {
-        $this->image = $image;
-        return $this;
     }
 }

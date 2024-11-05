@@ -1,36 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animals index{% endblock %}
+{% block title %}Nos Animaux{% endblock %}
 
 {% block body %}
-    <h1>Animals index</h1>
-
+    <h1>Nos Animaux</h1>
+    <div class="mb-4">
+        <a href="{{ path('app_animals_new') }}" class="btn btn-success">Ajouter un animal</a>
+    </div>
     <div class="row">
         {% for animal in animals %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card mb-4">
                     {% if animal.image %}
-                        <img src="{{ animal.image.url }}" class="card-img-top" alt="Image de {{ animal.name }}">
+                        <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
                     {% else %}
-                        <img src="placeholder.jpg" class="card-img-top" alt="Image de {{ animal.name }}">
+                        <img src="placeholder.jpg" class="card-img-top" alt="{{ animal.name }}">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ animal.name }}</h5>
-                        <p class="card-text">{{ animal.description }}</p>
-                        <p class="card-text"><strong>State:</strong> {{ animal.state }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Show</a>
-                            <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-secondary">Edit</a>
-                        {% endif %}
+                        <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Voir plus</a>
                     </div>
                 </div>
             </div>
         {% else %}
-            <p class="text-center">No records found</p>
+            <p>Aucun animal trouvé</p>
         {% endfor %}
     </div>
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_animals_new') }}" class="btn btn-primary">Create new</a>
-    {% endif %}
 {% endblock %}

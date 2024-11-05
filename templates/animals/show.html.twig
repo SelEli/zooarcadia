@@ -1,34 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animals{% endblock %}
+{% block title %}Détail de l'Animal{% endblock %}
 
 {% block body %}
-    <h1>Animals</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ animal.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ animal.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ animal.description }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
-                <td>{{ animal.state }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_animals_index') }}">back to list</a>
-
-    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
-
-    {{ include('animals/_delete_form.html.twig') }}
+    <h1>{{ animal.name }}</h1>
+    {% if animal.image %}
+        <img src="{{ animal.image.url }}" alt="{{ animal.name }}" style="width: 100%; height: auto;">
+    {% endif %}
+    <p>Description : {% if animal.description %}{{ animal.description }}{% else %}Non spécifiée{% endif %}</p>
+    <p>État : {% if animal.state %}{{ animal.state }}{% else %}Non spécifié{% endif %}</p>
+    <p>Détails : {% if animal.details %}{{ animal.details }}{% else %}Non spécifiés{% endif %}</p>
+    <p>Nombre de clics : {{ animal.clicks }}</p>
+    {% if animal.habitat %}
+        <p>Habitat : <a href="{{ path('app_habitats_show', {'id': animal.habitat.id}) }}">{{ animal.habitat.name }}</a></p>
+    {% else %}
+        <p>Habitat : Non spécifié</p>
+    {% endif %}
+    {% if animal.race %}
+        <p>Race : {{ animal.race.label }}</p>
+    {% else %}
+        <p>Race : Non spécifiée</p>
+    {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-warning">Éditer</a>
+        {{ include('animals/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

@@ -23,12 +23,22 @@ class Animals
     private ?string $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Habitats $habitat = null;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Images $image = null;
+
+    #[ORM\ManyToOne(targetEntity: Races::class, inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Races $race = null;
+
+    #[ORM\Column(type: 'integer')]
+    private int $clicks = 0;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $details = null;
 
     public function getId(): ?int
     {
@@ -87,6 +97,39 @@ class Animals
     public function setImage(?Images $image): static
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getRace(): ?Races
+    {
+        return $this->race;
+    }
+
+    public function setRace(?Races $race): static
+    {
+        $this->race = $race;
+        return $this;
+    }
+
+    public function getClicks(): int
+    {
+        return $this->clicks;
+    }
+
+    public function incrementClicks(): static
+    {
+        $this->clicks++;
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?string $details): static
+    {
+        $this->details = $details;
         return $this;
     }
 }

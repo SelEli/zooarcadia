@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241103133220 extends AbstractMigration
+final class Version20241105132607 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20241103133220 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE tasks ADD user_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE tasks ADD CONSTRAINT FK_50586597A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('CREATE INDEX IDX_50586597A76ED395 ON tasks (user_id)');
+        $this->addSql('ALTER TABLE habitats CHANGE description description VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE tasks DROP FOREIGN KEY FK_50586597A76ED395');
-        $this->addSql('DROP INDEX IDX_50586597A76ED395 ON tasks');
-        $this->addSql('ALTER TABLE tasks DROP user_id');
+        $this->addSql('ALTER TABLE habitats CHANGE description description VARCHAR(255) NOT NULL');
     }
 }

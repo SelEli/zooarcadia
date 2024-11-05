@@ -47,6 +47,7 @@ final class HabitatsController extends AbstractController
     {
         return $this->render('habitats/show.html.twig', [
             'habitat' => $habitat,
+            'animals' => $habitat->getAnimals(),
         ]);
     }
 
