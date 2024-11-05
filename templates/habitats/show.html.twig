@@ -5,12 +5,12 @@
 {% block body %}
     <h1>{{ habitat.name }}</h1>
     {% if habitat.image %}
-        <img src="{{ habitat.image.url }}" alt="{{ habitat.name }}" style="width: 100%; height: auto;">
+        <img src="{{ asset('uploads/images/' ~ habitat.image.getFilename()) }}" alt="{{ habitat.name }}" style="width: 100%; height: auto;">
     {% endif %}
     <p>{{ habitat.description }}</p>
     <h2>Animaux dans cet Habitat</h2>
     <ul>
-        {% for animal in animals %}
+        {% for animal in habitat.animals %}
             <li>
                 <a href="{{ path('app_animals_show', {'id': animal.id}) }}">{{ animal.name }}</a>
             </li>

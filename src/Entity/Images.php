@@ -13,8 +13,8 @@ class Images
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'blob')]
-    private $data;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $filename = null;
 
     #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: true)]
@@ -29,14 +29,14 @@ class Images
         return $this->id;
     }
 
-    public function getData()
+    public function getFilename(): ?string
     {
-        return $this->data;
+        return $this->filename;
     }
 
-    public function setData($data): static
+    public function setFilename(?string $filename): self
     {
-        $this->data = $data;
+        $this->filename = $filename;
         return $this;
     }
 
@@ -45,7 +45,7 @@ class Images
         return $this->habitat;
     }
 
-    public function setHabitat(?Habitats $habitat): static
+    public function setHabitat(?Habitats $habitat): self
     {
         $this->habitat = $habitat;
         return $this;
@@ -56,9 +56,14 @@ class Images
         return $this->animal;
     }
 
-    public function setAnimal(?Animals $animal): static
+    public function setAnimal(?Animals $animal): self
     {
         $this->animal = $animal;
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->filename ? $this->filename : '';
     }
 }

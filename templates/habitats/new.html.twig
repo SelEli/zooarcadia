@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Habitats{% endblock %}
+{% block title %}Edit Habitat{% endblock %}
 
 {% block body %}
-    <h1>Create new Habitats</h1>
+    <h1>Edit Habitat</h1>
 
-    {{ include('habitats/_form.html.twig') }}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Update</button>
+    {{ form_end(form) }}
 
     <a href="{{ path('app_habitats_index') }}">back to list</a>
 {% endblock %}

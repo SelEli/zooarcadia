@@ -19,12 +19,12 @@ class HabitatsType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('image', EntityType::class, [
-                'class' => Images::class,
-                'choice_label' => 'url',
+            ->add('comment', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('comment', TextareaType::class, [
+            ->add('image', EntityType::class, [
+                'class' => Images::class,
+                'choice_label' => 'filename', // Utiliser une propriété valide comme 'filename'
                 'required' => false,
             ]);
     }

@@ -92,4 +92,31 @@ class Habitats
     {
         return $this->animals;
     }
+
+    public function addAnimal(Animals $animal): static
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals->add($animal);
+            $animal->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animals $animal): static
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getHabitat() === $this) {
+                $animal->setHabitat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

@@ -1,29 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos Animaux{% endblock %}
+{% block title %}Liste des Animaux{% endblock %}
 
 {% block body %}
-    <h1>Nos Animaux</h1>
-    <div class="mb-4">
-        <a href="{{ path('app_animals_new') }}" class="btn btn-success">Ajouter un animal</a>
-    </div>
-    <div class="row">
+    <h1>Liste des Animaux</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>État</th>
+                <th>Détails</th>
+                <th>Habitat</th>
+                <th>Image</th>
+                <th>Race</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for animal in animals %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    {% if animal.image %}
-                        <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
-                    {% else %}
-                        <img src="placeholder.jpg" class="card-img-top" alt="{{ animal.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ animal.name }}</h5>
-                        <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Voir plus</a>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <p>Aucun animal trouvé</p>
+            <tr>
+                <td>{{ animal.name }}</td>
+                <td>{{ animal.description }}</td>
+                <td>{{ animal.state }}</td>
+                <td>{{ animal.details }}</td>
+                <td>{{ animal.habitat ? animal.habitat.name : '' }}</td>
+                <td>{{ animal.image ? animal.image.id : '' }}</td> <!-- Utiliser 'id' ou une autre propriété valide de l'entité Images -->
+                <td>{{ animal.race ? animal.race.label : '' }}</td>
+                <td>
+                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">Voir</a>
+                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">Éditer</a>
+                    {{ include('animals/_delete_form.html.twig', {'id': animal.id}) }}
+                </td>
+            </tr>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
 {% endblock %}

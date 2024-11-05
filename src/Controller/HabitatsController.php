@@ -38,7 +38,7 @@ final class HabitatsController extends AbstractController
 
         return $this->render('habitats/new.html.twig', [
             'habitat' => $habitat,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -65,7 +65,7 @@ final class HabitatsController extends AbstractController
 
         return $this->render('habitats/edit.html.twig', [
             'habitat' => $habitat,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

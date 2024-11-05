@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Animals;
-use App\Entity\Habitats; 
-use App\Entity\Images; 
+use App\Entity\Habitats;
+use App\Entity\Images;
 use App\Entity\Races;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -34,7 +34,7 @@ class AnimalsType extends AbstractType
             ])
             ->add('image', EntityType::class, [
                 'class' => Images::class,
-                'choice_label' => 'url',
+                'choice_label' => 'filename', // Utiliser 'filename' au lieu de 'url'
                 'required' => false,
             ])
             ->add('race', EntityType::class, [

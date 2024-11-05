@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <div class="card mb-4">
                     {% if habitat.image %}
-                        <img src="{{ habitat.image.url }}" class="card-img-top" alt="{{ habitat.name }}">
+                        <img src="{{ habitat.image.filename }}" class="card-img-top" alt="{{ habitat.name }}">
                     {% else %}
                         <img src="placeholder.jpg" class="card-img-top" alt="{{ habitat.name }}">
                     {% endif %}
