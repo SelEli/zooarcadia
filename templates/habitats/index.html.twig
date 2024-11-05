@@ -1,42 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Habitats index{% endblock %}
+{% block title %}Nos habitats{% endblock %}
 
 {% block body %}
-<article class="bg-secondary text-black text-center">
-    <div class="container p-4">
-        <h2 class="text-primary">Nos habitats</h2>
-        <div id="carouselHabitatsCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                {% for habitat in habitats %}
-                    <button type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
-                {% endfor %}
-            </div>
-            <div class="carousel-inner">
-                {% for habitat in habitats %}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <img src="../images/vue-zoo.jpg" class="d-block w-100" alt="Image de l'habitat {{ habitat.name }}">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{ habitat.name }}</h5>
-                            <p>{{ habitat.description }}</p>
-                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-outline-light mt-2">Voir les animaux</a>
-                        </div>
+    <h1>Nos Habitats</h1>
+    <div class="row">
+        {% for habitat in habitats %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    {% if habitat.image %}
+                        <img src="{{ habitat.image.url }}" class="card-img-top" alt="{{ habitat.name }}">
+                    {% else %}
+                        <img src="placeholder.jpg" class="card-img-top" alt="{{ habitat.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ habitat.name }}</h5>
+                        <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-primary">Voir plus</a>
                     </div>
-                {% endfor %}
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselHabitatsCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+        {% else %}
+            <p>Aucun habitat trouvé</p>
+        {% endfor %}
     </div>
-</article>
-
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_habitats_new') }}" class="btn btn-primary mt-4">Créer un nouvel habitat</a>
-{% endif %}
 {% endblock %}

@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/animals')]
 final class AnimalsController extends AbstractController
@@ -33,7 +33,7 @@ final class AnimalsController extends AbstractController
             $entityManager->persist($animal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER); // Correction ici
         }
 
         return $this->render('animals/new.html.twig', [
@@ -71,7 +71,7 @@ final class AnimalsController extends AbstractController
     #[Route('/{id}', name: 'app_animals_delete', methods: ['POST'])]
     public function delete(Request $request, Animals $animal, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->request->get('_token'))) {
             $entityManager->remove($animal);
             $entityManager->flush();
         }

@@ -12,7 +12,7 @@ class Habitats
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -24,17 +24,8 @@ class Habitats
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
-    /**
-     * @var Collection<int, Animals>
-     */
-    #[ORM\OneToMany(targetEntity: Animals::class, mappedBy: 'habitat')]
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Animals::class)]
     private Collection $animals;
-
-    /**
-     * @var Collection<int, Images>
-     */
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Images::class)]
-    private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'habitats')]
     private ?Images $image = null;
@@ -42,7 +33,6 @@ class Habitats
     public function __construct()
     {
         $this->animals = new ArrayCollection();
-        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,15 +81,6 @@ class Habitats
         return $this->animals;
     }
 
-
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
     public function getImage(): ?Images
     {
         return $this->image;
@@ -108,9 +89,6 @@ class Habitats
     public function setImage(?Images $image): static
     {
         $this->image = $image;
-
         return $this;
     }
-
-
 }

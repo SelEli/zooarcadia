@@ -5,39 +5,32 @@
 {% block body %}
     <h1>Animals index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>State</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
         {% for animal in animals %}
-            <tr>
-                <td>{{ animal.id }}</td>
-                <td>{{ animal.name }}</td>
-                <td>{{ animal.description }}</td>
-                <td>{{ animal.state }}</td>
-                <td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_animals_show', {'id': animal.id}) }}">show</a>
-                        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">edit</a>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    {% if animal.image %}
+                        <img src="{{ animal.image.url }}" class="card-img-top" alt="Image de {{ animal.name }}">
+                    {% else %}
+                        <img src="placeholder.jpg" class="card-img-top" alt="Image de {{ animal.name }}">
                     {% endif %}
-                </td>
-            </tr>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ animal.name }}</h5>
+                        <p class="card-text">{{ animal.description }}</p>
+                        <p class="card-text"><strong>State:</strong> {{ animal.state }}</p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-secondary">Edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+            <p class="text-center">No records found</p>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_animals_new') }}">Create new</a>
+        <a href="{{ path('app_animals_new') }}" class="btn btn-primary">Create new</a>
     {% endif %}
 {% endblock %}

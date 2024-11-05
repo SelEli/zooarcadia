@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/habitats')]
 final class HabitatsController extends AbstractController
@@ -71,7 +71,7 @@ final class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->request->get('_token'))) {
             $entityManager->remove($habitat);
             $entityManager->flush();
         }

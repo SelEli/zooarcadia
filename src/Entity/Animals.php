@@ -10,7 +10,7 @@ class Animals
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -23,6 +23,11 @@ class Animals
     private ?string $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Habitats $habitat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Images $image = null;
 
     public function getId(): ?int
@@ -38,7 +43,6 @@ class Animals
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -50,7 +54,6 @@ class Animals
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -62,7 +65,17 @@ class Animals
     public function setState(?string $state): static
     {
         $this->state = $state;
+        return $this;
+    }
 
+    public function getHabitat(): ?Habitats
+    {
+        return $this->habitat;
+    }
+
+    public function setHabitat(?Habitats $habitat): static
+    {
+        $this->habitat = $habitat;
         return $this;
     }
 
@@ -74,7 +87,6 @@ class Animals
     public function setImage(?Images $image): static
     {
         $this->image = $image;
-
         return $this;
     }
 }

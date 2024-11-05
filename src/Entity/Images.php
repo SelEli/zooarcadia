@@ -3,9 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ImagesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
@@ -13,29 +10,19 @@ class Images
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(type: 'blob')]
     private $data;
 
-    /**
-     * @var Collection<int, Habitats>
-     */
-    #[ORM\OneToMany(targetEntity: Habitats::class, mappedBy: 'image')]
-    private Collection $habitats;
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Habitats $habitat = null;
 
-    /**
-     * @var Collection<int, Animals>
-     */
-    #[ORM\OneToMany(targetEntity: Animals::class, mappedBy: 'image')]
-    private Collection $animals;
-
-    public function __construct()
-    {
-        $this->habitats = new ArrayCollection();
-        $this->animals = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: Animals::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Animals $animal = null;
 
     public function getId(): ?int
     {
@@ -50,67 +37,28 @@ class Images
     public function setData($data): static
     {
         $this->data = $data;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Habitats>
-     */
-    public function getHabitats(): Collection
+    public function getHabitat(): ?Habitats
     {
-        return $this->habitats;
+        return $this->habitat;
     }
 
-    public function addHabitat(Habitats $habitat): static
+    public function setHabitat(?Habitats $habitat): static
     {
-        if (!$this->habitats->contains($habitat)) {
-            $this->habitats->add($habitat);
-            $habitat->setImage($this);
-        }
-
+        $this->habitat = $habitat;
         return $this;
     }
 
-    public function removeHabitat(Habitats $habitat): static
+    public function getAnimal(): ?Animals
     {
-        if ($this->habitats->removeElement($habitat)) {
-            // set the owning side to null (unless already changed)
-            if ($habitat->getImage() === $this) {
-                $habitat->setImage(null);
-            }
-        }
-
-        return $this;
+        return $this->animal;
     }
 
-    /**
-     * @return Collection<int, Animals>
-     */
-    public function getAnimals(): Collection
+    public function setAnimal(?Animals $animal): static
     {
-        return $this->animals;
-    }
-
-    public function addAnimal(Animals $animal): static
-    {
-        if (!$this->animals->contains($animal)) {
-            $this->animals->add($animal);
-            $animal->setImage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimal(Animals $animal): static
-    {
-        if ($this->animals->removeElement($animal)) {
-            // set the owning side to null (unless already changed)
-            if ($animal->getImage() === $this) {
-                $animal->setImage(null);
-            }
-        }
-
+        $this->animal = $animal;
         return $this;
     }
 }
