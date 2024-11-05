@@ -1,11 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Comments{% endblock %}
+{% block title %}Nouveau Commentaire{% endblock %}
 
 {% block body %}
-    <h1>Create new Comments</h1>
+    <div class="container mt-5 bg-secondary p-4">
+        <h1 class="text-center text-primary">Créer un nouveau commentaire</h1>
 
-    {{ include('comments/_form.html.twig') }}
+        <div class="bg-light p-3 my-3">
+            <form action="{{ path('app_comments_new') }}" method="post">
+                <div class="form-group">
+                    <label for="name" class="text-dark">Nom</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="comment" class="text-dark">Commentaire</label>
+                    <textarea id="comment" name="comment" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                </div>
+            </form>
+        </div>
 
-    <a href="{{ path('app_comments_index') }}">back to list</a>
+        <div class="text-center pt-3">
+            <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
+        </div>
+    </div>
 {% endblock %}
