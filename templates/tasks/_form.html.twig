@@ -24,16 +24,8 @@
         {{ form_widget(form.animal, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="mb-3">
-        {{ form_label(form.animalReport) }}
-        {{ form_widget(form.animalReport, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_label(form.habitatComment) }}
-        {{ form_widget(form.habitatComment, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_label(form.foodConsumption) }}
-        {{ form_widget(form.foodConsumption, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(form.user) }}
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
     </div>
     <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

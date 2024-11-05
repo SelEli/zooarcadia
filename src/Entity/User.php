@@ -86,11 +86,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        //$roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        //$roles[] = 'ROLE_USER';
-
-        //return array_unique($roles);
         return [$this->role->getName()]; // Utiliser le rôle associé via ManyToOne
     }
 
@@ -180,5 +175,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Convert the object to a string representation.
+     */
+    public function __toString(): string
+    {
+        return $this->email ?? '';
     }
 }

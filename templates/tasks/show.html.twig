@@ -1,28 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos habitats{% endblock %}
+{% block title %}Détail de la Tâche{% endblock %}
 
 {% block body %}
-    <div class="container p-4 bg-light">
-        <h1 class="text-primary">Nos Habitats</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for habitat in habitats %}
-                <div class="col">
-                    <div class="card h-100">
-                        {% if habitat.image %}
-                            <img src="{{ habitat.image.url }}" class="card-img-top" alt="{{ habitat.name }}">
-                        {% else %}
-                            <img src="placeholder.jpg" class="card-img-top" alt="{{ habitat.name }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ habitat.name }}</h5>
-                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-primary">Voir plus</a>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <p>Aucun habitat trouvé</p>
-            {% endfor %}
-        </div>
-    </div>
+    <h1>Détail de la Tâche</h1>
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            <td>{{ task.name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ task.description }}</td>
+        </tr>
+        <tr>
+            <th>Date de Création</th>
+            <td>{{ task.createdAt|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <th>Date d'Échéance</th>
+            <td>{{ task.dueDate ? task.dueDate|date('d/m/Y') : 'Non définie' }}</td>
+        </tr>
+        <tr>
+            <th>Statut</th>
+            <td>{{ task.status }}</td>
+        </tr>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Utilisateur</th>
+                <td>{{ task.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Rôle</th>
+                <td>{{ task.user.roles|join(', ') }}</td>
+            </tr>
+        {% endif %}
+    </table>
+    <a href="{{ path('app_tasks_index') }}" class="btn btn-primary">Retour à la liste</a>
+    {% if task.user == app.user or is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_tasks_edit', {'id': task.id}) }}" class="btn btn-warning">Éditer</a>
+        {{ include('tasks/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

@@ -18,7 +18,12 @@ final class TasksController extends AbstractController
     public function index(TasksRepository $tasksRepository): Response
     {
         $user = $this->getUser();
-        $tasks = $tasksRepository->findBy(['user' => $user]);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $tasks = $tasksRepository->findAll();
+        } else {
+            $tasks = $tasksRepository->findBy(['user' => $user]);
+        }
 
         return $this->render('tasks/index.html.twig', [
             'tasks' => $tasks,
@@ -49,7 +54,7 @@ final class TasksController extends AbstractController
     #[Route('/{id}', name: 'app_tasks_show', methods: ['GET'])]
     public function show(Tasks $task): Response
     {
-        if ($task->getUser() !== $this->getUser()) {
+        if (!$this->isGranted('ROLE_ADMIN') && $task->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You do not have access to this task.');
         }
 
@@ -61,7 +66,7 @@ final class TasksController extends AbstractController
     #[Route('/{id}/edit', name: 'app_tasks_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tasks $task, EntityManagerInterface $entityManager): Response
     {
-        if ($task->getUser() !== $this->getUser()) {
+        if (!$this->isGranted('ROLE_ADMIN') && $task->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You do not have access to edit this task.');
         }
 
@@ -83,7 +88,7 @@ final class TasksController extends AbstractController
     #[Route('/{id}', name: 'app_tasks_delete', methods: ['POST'])]
     public function delete(Request $request, Tasks $task, EntityManagerInterface $entityManager): Response
     {
-        if ($task->getUser() !== $this->getUser()) {
+        if (!$this->isGranted('ROLE_ADMIN') && $task->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You do not have access to delete this task.');
         }
 

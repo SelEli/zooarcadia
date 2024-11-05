@@ -1,49 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tasks index{% endblock %}
+{% block title %}Mes Tâches{% endblock %}
 
 {% block body %}
-    <h1>Tasks index</h1>
-
+    <h1>Mes Tâches</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_tasks_new') }}" class="btn btn-success mb-3">Nouvelle Tâche</a>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>CreatedAt</th>
-                <th>DueDate</th>
-                <th>Status</th>
-                <th>Animal</th>
-                <th>actions</th>
+                <th>Date de Création</th>
+                <th>Date d'Échéance</th>
+                <th>Statut</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Utilisateur</th>
+                    <th>Rôle</th>
+                {% endif %}
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.name }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ task.dueDate ? task.dueDate|date('Y-m-d') : '' }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.animal ? task.animal.name : 'N/A' }}</td>
-                <td>
-                    <a href="{{ path('app_tasks_show', {'id': task.id}) }}" class="btn btn-outline-primary btn-sm">show</a>
-                    <a href="{{ path('app_tasks_edit', {'id': task.id}) }}" class="btn btn-outline-secondary btn-sm">edit</a>
-                    <form method="post" action="{{ path('app_tasks_delete', {'id': task.id}) }}" style="display:inline;">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
-                        <button type="submit" class="btn btn-outline-danger btn-sm">delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.createdAt|date('d/m/Y') }}</td>
+                    <td>{{ task.dueDate ? task.dueDate|date('d/m/Y') : 'Non définie' }}</td>
+                    <td>{{ task.status }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>{{ task.user.email }}</td>
+                        <td>{{ task.user.roles|join(', ') }}</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('app_tasks_show', {'id': task.id}) }}" class="btn btn-primary">Voir</a>
+                        {% if task.user == app.user or is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_tasks_edit', {'id': task.id}) }}" class="btn btn-warning">Éditer</a>
+                            {{ include('tasks/_delete_form.html.twig') }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucune tâche trouvée</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_tasks_new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}
