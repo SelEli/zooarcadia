@@ -3,26 +3,42 @@
 {% block title %}Détail de l'Animal{% endblock %}
 
 {% block body %}
-    <h1>{{ animal.name }}</h1>
-    {% if animal.image %}
-        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data }}" alt="{{ animal.name }}" style="width: 100%; height: auto;">
-    {% endif %}
-    <p>Description : {% if animal.description %}{{ animal.description }}{% else %}Non spécifiée{% endif %}</p>
-    <p>État : {% if animal.state %}{{ animal.state }}{% else %}Non spécifié{% endif %}</p>
-    <p>Détails : {% if animal.details %}{{ animal.details }}{% else %}Non spécifiés{% endif %}</p>
-    <p>Nombre de clics : {{ animal.clicks }}</p>
-    {% if animal.habitat %}
-        <p>Habitat : <a href="{{ path('app_habitats_show', {'id': animal.habitat.id}) }}">{{ animal.habitat.name }}</a></p>
-    {% else %}
-        <p>Habitat : Non spécifié</p>
-    {% endif %}
-    {% if animal.race %}
-        <p>Race : {{ animal.race.label }}</p>
-    {% else %}
-        <p>Race : Non spécifiée</p>
-    {% endif %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-warning">Éditer</a>
-        {{ include('animals/_delete_form.html.twig') }}
-    {% endif %}
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div class="card mx-auto" style="width: 48rem;">
+            {% if animal.image %}
+                <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data|base64_encode }}" class="card-img-top" alt="{{ animal.name }}">
+            {% else %}
+                <img src="placeholder.jpg" class="card-img-top" alt="No image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ animal.name }}</h5>
+                <p class="card-text">{{ animal.description }}</p>
+                <p class="card-text"><strong>État :</strong> {{ animal.state }}</p>
+                <p class="card-text"><strong>Détails :</strong> {{ animal.details }}</p>
+                <p class="card-text"><strong>Nombre de clics :</strong> {{ animal.clicks }}</p>
+                {% if animal.habitat %}
+                    <p class="card-text"><strong>Habitat :</strong> <a href="{{ path('app_habitats_show', {'id': animal.habitat.id}) }}">{{ animal.habitat.name }}</a></p>
+                {% else %}
+                    <p class="card-text"><strong>Habitat :</strong> Non spécifié</p>
+                {% endif %}
+                {% if animal.race %}
+                    <p class="card-text"><strong>Race :</strong> {{ animal.race.label }}</p>
+                {% else %}
+                    <p class="card-text"><strong>Race :</strong> Non spécifiée</p>
+                {% endif %}
+                <div class="d-flex justify-content-between mt-2">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-warning">Éditer</a>
+                        {{ include('animals/_delete_form.html.twig', {'id': animal.id, 'btn_class': 'btn btn-danger'}) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+                        <div class="text-center mt-4">
+                    <a href="{{ path('app_animals_index') }}" class="btn btn-primary">Retour à la liste</a>
+                </div>
+    </div>
 {% endblock %}

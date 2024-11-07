@@ -3,44 +3,39 @@
 {% block title %}Liste des Animaux{% endblock %}
 
 {% block body %}
-    <h1>Liste des Animaux</h1>
+    <h1 class="text-center my-4">Liste des Animaux</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>État</th>
-                <th>Détails</th>
-                <th>Habitat</th>
-                <th>Image</th>
-                <th>Race</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for animal in animals %}
-            <tr>
-                <td>{{ animal.name }}</td>
-                <td>{{ animal.description }}</td>
-                <td>{{ animal.state }}</td>
-                <td>{{ animal.details }}</td>
-                <td>{{ animal.habitat ? animal.habitat.name : '' }}</td>
-                <td>
-                    {% if animal.image %}
-                        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data }}" alt="{{ animal.image.filename }}" style="max-width: 100px;"/>
-                    {% else %}
-                        No image
-                    {% endif %}
-                </td>
-                <td>{{ animal.race ? animal.race.label : '' }}</td>
-                <td>
-                    <a href="{{ path('app_animals_show', {'id': animal.id}) }}">Voir</a>
-                    <a href="{{ path('app_animals_edit', {'id': animal.id}) }}">Éditer</a>
-                    {{ include('animals/_delete_form.html.twig', {'id': animal.id}) }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container bg-light mx-auto my-4 p-4" style="width: 50%;">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for animal in animals %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if animal.image %}
+                            <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data|base64_encode }}" class="card-img-top" alt="{{ animal.name }}">
+                        {% else %}
+                            <img src="placeholder.jpg" class="card-img-top" alt="No image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ animal.name }}</h5>
+                            <p class="card-text">
+                                {% set truncated_description = animal.description|split(' ')|slice(0, 5)|join(' ') %}
+                                {{ truncated_description }}...
+                            </p>
+                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Voir plus</a>
+                            <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-secondary">Éditer</a>
+                            {{ include('animals/_delete_form.html.twig', {'id': animal.id}) }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">No animals found</p>
+            {% endfor %}
+        </div>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="text-center mt-4">
+                <a href="{{ path('app_animals_new') }}" class="btn btn-success">Ajouter</a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

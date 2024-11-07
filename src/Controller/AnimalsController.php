@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Animals;
+use App\Entity\Images;
 use App\Form\AnimalsType;
 use App\Repository\AnimalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,15 +20,11 @@ final class AnimalsController extends AbstractController
     {
         $animals = $animalsRepository->findAll();
 
-        // Convertir les données des images en base64
+        // Convertir les données des images en chaînes de caractères
         foreach ($animals as $animal) {
-            if ($animal->getImage()) {
-                $image = $animal->getImage();
-                $imageData = $image->getData();
-                if (is_resource($imageData)) {
-                    $imageData = stream_get_contents($imageData);
-                }
-                $image->setData(base64_encode($imageData));
+            if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
+                $imageData = stream_get_contents($animal->getImage()->getData());
+                $animal->getImage()->setData($imageData);
             }
         }
 
@@ -44,6 +41,22 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+            }
+
             $entityManager->persist($animal);
             $entityManager->flush();
 
@@ -52,21 +65,17 @@ final class AnimalsController extends AbstractController
 
         return $this->render('animals/new.html.twig', [
             'animal' => $animal,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_animals_show', methods: ['GET'])]
     public function show(Animals $animal, EntityManagerInterface $entityManager): Response
     {
-        // Convertir les données des images en base64
-        if ($animal->getImage()) {
-            $image = $animal->getImage();
-            $imageData = $image->getData();
-            if (is_resource($imageData)) {
-                $imageData = stream_get_contents($imageData);
-            }
-            $image->setData(base64_encode($imageData));
+        // Convertir les données des images en chaînes de caractères
+        if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
+            $imageData = stream_get_contents($animal->getImage()->getData());
+            $animal->getImage()->setData($imageData);
         }
 
         // Incrémenter le compteur de clics
@@ -85,6 +94,22 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);
@@ -92,7 +117,7 @@ final class AnimalsController extends AbstractController
 
         return $this->render('animals/edit.html.twig', [
             'animal' => $animal,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
