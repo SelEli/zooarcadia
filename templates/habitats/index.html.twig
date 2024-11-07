@@ -1,36 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos habitats{% endblock %}
+{% block title %}Habitats Index{% endblock %}
 
 {% block body %}
-    <h1>Nos habitats</h1>
-            <p>Découvrez nos différents habitats et leurs pensionnaires</p>
-        </div>
-    </div>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('app_habitats_new') }}" class="btn btn-success mb-3">Ajouter un habitat</a>
-    {% endif %}
-    <div class="row">
+    <h1>Habitats Index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for habitat in habitats %}
-            <div class="col-md-4">
-                <div class="card mb-4">
+            <tr>
+                <td>{{ habitat.id }}</td>
+                <td>{{ habitat.name }}</td>
+                <td>{{ habitat.description }}</td>
+                <td>
                     {% if habitat.image %}
-                        <img src="{{ habitat.image.filename }}" class="card-img-top" alt="{{ habitat.name }}">
+                        <img src="data:{{ habitat.image.imageType }};base64,{{ habitat.image.data|base64_encode }}" alt="{{ habitat.image.filename }}" style="max-width: 100px;"/>
                     {% else %}
-                        <img src="placeholder.jpg" class="card-img-top" alt="{{ habitat.name }}">
+                        No image
                     {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ habitat.name }}</h5>
-                        <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-primary">Voir plus</a>
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}" class="btn btn-warning">Éditer</a>
-                            {{ include('habitats/_delete_form.html.twig') }}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
+                </td>
+                <td>
+                    <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}">show</a>
+                    <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}">edit</a>
+                </td>
+            </tr>
         {% else %}
-            <p>Aucun habitat trouvé</p>
+            <tr>
+                <td colspan="5">No records found</td>
+            </tr>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_habitats_new') }}">Create new</a>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Habitats;
+use App\Entity\Images;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,8 +18,18 @@ final class HabitatsController extends AbstractController
     #[Route(name: 'app_habitats_index', methods: ['GET'])]
     public function index(HabitatsRepository $habitatsRepository): Response
     {
+        $habitats = $habitatsRepository->findAll();
+
+        // Convertir les données des images en chaînes de caractères
+        foreach ($habitats as $habitat) {
+            if ($habitat->getImage() && is_resource($habitat->getImage()->getData())) {
+                $imageData = stream_get_contents($habitat->getImage()->getData());
+                $habitat->getImage()->setData($imageData);
+            }
+        }
+
         return $this->render('habitats/index.html.twig', [
-            'habitats' => $habitatsRepository->findAll(),
+            'habitats' => $habitats,
         ]);
     }
 
@@ -30,6 +41,22 @@ final class HabitatsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $habitat->setImage($image); // Assurez-vous que l'entité Habitats a une relation avec Images
+            }
+
             $entityManager->persist($habitat);
             $entityManager->flush();
 
@@ -45,6 +72,11 @@ final class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_show', methods: ['GET'])]
     public function show(Habitats $habitat): Response
     {
+        if ($habitat->getImage() && is_resource($habitat->getImage()->getData())) {
+            $imageData = stream_get_contents($habitat->getImage()->getData());
+            $habitat->getImage()->setData($imageData);
+        }
+
         return $this->render('habitats/show.html.twig', [
             'habitat' => $habitat,
             'animals' => $habitat->getAnimals(),
@@ -58,6 +90,22 @@ final class HabitatsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $habitat->setImage($image); // Assurez-vous que l'entité Habitats a une relation avec Images
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);

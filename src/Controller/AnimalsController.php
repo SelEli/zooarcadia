@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animals;
 use App\Form\AnimalsType;
+use App\Entity\Images;
 use App\Repository\AnimalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +31,22 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+            }
+
             $entityManager->persist($animal);
             $entityManager->flush();
 
@@ -45,6 +62,12 @@ final class AnimalsController extends AbstractController
     #[Route('/{id}', name: 'app_animals_show', methods: ['GET'])]
     public function show(Animals $animal, EntityManagerInterface $entityManager): Response
     {
+        // Convertir les données BLOB en chaîne de caractères
+        if ($animal->getImage()) {
+            $imageData = stream_get_contents($animal->getImage()->getData());
+            $animal->getImage()->setData($imageData);
+        }
+
         // Incrémenter le compteur de clics
         $animal->incrementClicks();
         $entityManager->flush();
@@ -61,6 +84,22 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imageFile')->getData();
+
+            if ($file) {
+                $imageData = file_get_contents($file->getPathname());
+                $mimeType = $file->getMimeType();
+                $filename = $file->getClientOriginalName();
+
+                $image = new Images();
+                $image->setData($imageData);
+                $image->setImageType($mimeType);
+                $image->setFilename($filename);
+
+                $entityManager->persist($image);
+                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);

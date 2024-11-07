@@ -26,7 +26,13 @@
                 <td>{{ animal.state }}</td>
                 <td>{{ animal.details }}</td>
                 <td>{{ animal.habitat ? animal.habitat.name : '' }}</td>
-                <td>{{ animal.image ? animal.image.id : '' }}</td> <!-- Utiliser 'id' ou une autre propriété valide de l'entité Images -->
+                <td>
+                    {% if animal.image %}
+                        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data|base64_encode }}" alt="{{ animal.image.filename }}" style="max-width: 100px;"/>
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
                 <td>{{ animal.race ? animal.race.label : '' }}</td>
                 <td>
                     <a href="{{ path('app_animals_show', {'id': animal.id}) }}">Voir</a>

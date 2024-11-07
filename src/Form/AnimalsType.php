@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnimalsType extends AbstractType
@@ -32,9 +33,9 @@ class AnimalsType extends AbstractType
                 'choice_label' => 'name',
                 'required' => false,
             ])
-            ->add('image', EntityType::class, [
-                'class' => Images::class,
-                'choice_label' => 'filename', // Utiliser 'filename' au lieu de 'url'
+            ->add('imageFile', FileType::class, [
+                'label' => 'Upload Image',
+                'mapped' => false,
                 'required' => false,
             ])
             ->add('race', EntityType::class, [
