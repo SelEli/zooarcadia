@@ -3,12 +3,11 @@
 {% block title %}Bienvenue au Zoo Arcadia{% endblock %}
 
 {% block body %}
-
-            <h1>Bienvenue au Zoo Arcadia</h1>
-            <p>Découvrez notre zoo et nos valeurs écologiques</p>
+    <h1>Bienvenue au Zoo Arcadia</h1>
+    <p>Découvrez notre zoo et nos valeurs écologiques</p>
         </div>
     </div>
-
+    
     <div class="container p-4 bg-dark">
         <h2 class="text-primary text-center">Nos habitats</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="habitat-container">
@@ -17,7 +16,7 @@
                 <div class="col p-3">
                     <div class="card bg-light text-black">
                         {% if habitat.image %}
-                            <img src="{{ habitat.image.filename }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
+                            <img src="data:{{ habitat.image.imageType }};base64,{{ habitat.image.data }}" class="card-img-top" alt="Image de l'habitat {{ habitat.name }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ habitat.name }}</h5>
@@ -34,7 +33,7 @@
             <a href="{{ path('app_habitats_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
         </div>
     </div>
-    
+
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-secondary text-white">
@@ -68,7 +67,9 @@
             {% for animal in animals %}
                 <div class="col p-3">
                     <div class="card bg-light text-black">
-                        <img src="{{ animal.image }}" class="card-img-top" alt="{{ animal.name }}">
+                        {% if animal.image %}
+                            <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data }}" class="card-img-top" alt="{{ animal.name }}">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ animal.name }}</h5>
                         </div>

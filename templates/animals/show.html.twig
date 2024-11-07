@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ animal.name }}</h1>
     {% if animal.image %}
-        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data|base64_encode }}" alt="{{ animal.name }}" style="width: 100%; height: auto;">
+        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data }}" alt="{{ animal.name }}" style="width: 100%; height: auto;">
     {% endif %}
     <p>Description : {% if animal.description %}{{ animal.description }}{% else %}Non spécifiée{% endif %}</p>
     <p>État : {% if animal.state %}{{ animal.state }}{% else %}Non spécifié{% endif %}</p>

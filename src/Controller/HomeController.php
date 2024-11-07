@@ -21,12 +21,42 @@ class HomeController extends AbstractController
         ServicesRepository $servicesRepository,
         AnimalsRepository $animalsRepository
     ): Response {
+        // Récupérer toutes les informations nécessaires
+        $informations = $informationRepository->findAll();
+        $comments = $commentRepository->findBy(['isVisible' => true]);
+        $habitats = $habitatsRepository->findAll();
+        $services = $servicesRepository->findAll();
+        $animals = $animalsRepository->findAll();
+
+        // Convertir les données des images des habitats et des animaux en base64
+        foreach ($habitats as $habitat) {
+            if ($habitat->getImage()) {
+                $image = $habitat->getImage();
+                $imageData = $image->getData();
+                if (is_resource($imageData)) {
+                    $imageData = stream_get_contents($imageData);
+                }
+                $image->setData(base64_encode($imageData));
+            }
+        }
+
+        foreach ($animals as $animal) {
+            if ($animal->getImage()) {
+                $image = $animal->getImage();
+                $imageData = $image->getData();
+                if (is_resource($imageData)) {
+                    $imageData = stream_get_contents($imageData);
+                }
+                $image->setData(base64_encode($imageData));
+            }
+        }
+
         return $this->render('home/index.html.twig', [
-            'informations' => $informationRepository->findAll(),
-            'comments' => $commentRepository->findBy(['isVisible' => true]),
-            'habitats' => $habitatsRepository->findAll(),
-            'services' => $servicesRepository->findAll(),
-            'animals' => $animalsRepository->findAll(),
+            'informations' => $informations,
+            'comments' => $comments,
+            'habitats' => $habitats,
+            'services' => $services,
+            'animals' => $animals,
         ]);
     }
 }
