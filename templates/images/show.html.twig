@@ -1,15 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail de l'Image{% endblock %}
+{% block title %}Images{% endblock %}
 
 {% block body %}
-    <h1>Détail de l'Image</h1>
+    <h1>Images</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ image.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    {% if image.data %}
+                        <img src="data:{{ image.imageType }};base64,{{ image.data|base64_encode }}" alt="{{ image.filename }}" style="max-width: 100px;"/>
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Filename</th>
@@ -19,6 +29,7 @@
     </table>
 
     <a href="{{ path('app_images_index') }}">back to list</a>
+
     <a href="{{ path('app_images_edit', {'id': image.id}) }}">edit</a>
 
     {{ include('images/_delete_form.html.twig') }}

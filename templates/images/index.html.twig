@@ -9,14 +9,22 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Filename</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for image in images %}
             <tr>
                 <td>{{ image.id }}</td>
+                <td>
+                    {% if image.data %}
+                        <img src="data:{{ image.imageType }};base64,{{ image.data|base64_encode }}" alt="{{ image.filename }}" style="max-width: 100px;"/>
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
                 <td>{{ image.filename }}</td>
                 <td>
                     <a href="{{ path('app_images_show', {'id': image.id}) }}">show</a>
@@ -25,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

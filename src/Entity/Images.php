@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ImagesRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
@@ -10,23 +11,33 @@ class Images
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::BLOB)]
+    private $data;
+
+    #[ORM\Column(length: 255)]
     private ?string $filename = null;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Habitats $habitat = null;
-
-    #[ORM\ManyToOne(targetEntity: Animals::class, inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Animals $animal = null;
+    #[ORM\Column(length: 255)]
+    private ?string $imageType = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data): static
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
     public function getFilename(): ?string
@@ -34,36 +45,22 @@ class Images
         return $this->filename;
     }
 
-    public function setFilename(?string $filename): self
+    public function setFilename(string $filename): static
     {
         $this->filename = $filename;
+
         return $this;
     }
 
-    public function getHabitat(): ?Habitats
+    public function getImageType(): ?string
     {
-        return $this->habitat;
+        return $this->imageType;
     }
 
-    public function setHabitat(?Habitats $habitat): self
+    public function setImageType(string $imageType): static
     {
-        $this->habitat = $habitat;
+        $this->imageType = $imageType;
+
         return $this;
-    }
-
-    public function getAnimal(): ?Animals
-    {
-        return $this->animal;
-    }
-
-    public function setAnimal(?Animals $animal): self
-    {
-        $this->animal = $animal;
-        return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->filename ? $this->filename : '';
     }
 }
