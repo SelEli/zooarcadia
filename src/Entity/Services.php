@@ -19,6 +19,10 @@ class Services
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'services')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Images $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,7 +36,6 @@ class Services
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -41,10 +44,20 @@ class Services
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
+        return $this;
+    }
 
+    public function getImage(): ?Images
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Images $image): static
+    {
+        $this->image = $image;
         return $this;
     }
 }

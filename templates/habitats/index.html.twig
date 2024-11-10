@@ -3,43 +3,43 @@
 {% block title %}Habitats Index{% endblock %}
 
 {% block body %}
-    <h1>Habitats Index</h1>
+    <h1 class="text-center my-4">Liste des Habitats</h1>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for habitat in habitats %}
-            <tr>
-                <td>{{ habitat.id }}</td>
-                <td>{{ habitat.name }}</td>
-                <td>{{ habitat.description }}</td>
-                <td>
-                    {% if habitat.image %}
-                        <img src="data:{{ habitat.image.imageType }};base64,{{ habitat.image.data|base64_encode }}" alt="{{ habitat.image.filename }}" style="max-width: 100px;"/>
-                    {% else %}
-                        No image
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}">show</a>
-                    <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">No records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container bg-light mx-auto my-4 p-4" style="width: 50%;">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for habitat in habitats %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if habitat.image %}
+                            <img src="data:{{ habitat.image.imageType }};base64,{{ habitat.image.data|base64_encode }}" class="card-img-top" alt="{{ habitat.name }}">
+                        {% else %}
+                            <img src="placeholder.jpg" class="card-img-top" alt="No image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ habitat.name }}</h5>
+                            <p class="card-text">
+                                {% set truncated_description = habitat.description|split(' ')|slice(0, 5)|join(' ') %}
+                                {{ truncated_description }}...
+                            </p>
+                            <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}" class="btn btn-primary">Voir plus</a>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}" class="btn btn-secondary">Éditer</a>
+                                {{ include('habitats/_delete_form.html.twig', {'id': habitat.id}) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">No habitats found</p>
+            {% endfor %}
+        </div>
 
-    <a href="{{ path('app_habitats_new') }}">Create new</a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="text-center mt-4">
+                <a href="{{ path('app_habitats_new') }}" class="btn btn-success">Ajouter</a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

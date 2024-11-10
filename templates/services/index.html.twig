@@ -4,43 +4,47 @@
 
 {% block body %}
 
-            <h1>Nos services</h1>
-            <p>Découvrez tout ce que nous offrons</p>
-        </div>
-    </div>
+    <h1>Nos services</h1>
+    <p>Découvrez tout ce que nous offrons</p>
+</div>
+</div>
 
-    <div class="container p-4 bg-light">
-        <div class="row row-cols-1 row-cols-md-2 g-4" id="service-container">
-            <!-- Les services seront affichés ici -->
-            {% for service in services %}
-                <div class="col">
-                    <div class="card bg-dark text-white h-100">
+<div class="container p-4 bg-light">
+    <div class="row row-cols-1 row-cols-md-2 g-4" id="service-container">
+        <!-- Les services seront affichés ici -->
+        {% for service in services %}
+            <div class="col">
+                <div class="card bg-dark text-white h-100">
+                    {% if service.image %}
+                        <img src="data:{{ service.image.imageType }};base64,{{ service.image.data|base64_encode }}" class="card-img-top" alt="{{ service.name }}">
+                    {% else %}
                         <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ service.name }}</h5>
-                            <!-- Pas de description affichée ici -->
-                            <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
-                                <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-primary mt-2">Editer</a>
-                                <form method="post" action="{{ path('app_services_delete', {'id': service.id}) }}" style="display:inline;">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
-                                    <button type="submit" class="btn btn-outline-danger mt-2">Supprimer</button>
-                                </form>
-                            {% endif %}
-                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.name }}</h5>
+                        <!-- Pas de description affichée ici -->
+                        <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
+                            <a href="{{ path('app_services_edit', {'id': service.id}) }}" class="btn btn-outline-primary mt-2">Editer</a>
+                            <form method="post" action="{{ path('app_services_delete', {'id': service.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                                <button type="submit" class="btn btn-outline-danger mt-2">Supprimer</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
-            {% else %}
-                <div class="col-12">
-                    <p class="text-center">No records found</p>
-                </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">No records found</p>
+            </div>
+        {% endfor %}
     </div>
+</div>
 
-    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
-        <div class="container text-center mt-4">
-            <a href="{{ path('app_services_new') }}" class="btn btn-primary">Créer un nouveau service</a>
-        </div>
-    {% endif %}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEE') %}
+    <div class="container text-center mt-4">
+        <a href="{{ path('app_services_new') }}" class="btn btn-primary">Créer un nouveau service</a>
+    </div>
+{% endif %}
 {% endblock %}

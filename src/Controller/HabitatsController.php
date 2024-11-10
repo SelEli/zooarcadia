@@ -6,6 +6,7 @@ use App\Entity\Habitats;
 use App\Entity\Images;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
+use App\Repository\AnimalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,16 +71,20 @@ final class HabitatsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_habitats_show', methods: ['GET'])]
-    public function show(Habitats $habitat): Response
+    public function show(Habitats $habitat, AnimalsRepository $animalsRepository): Response
     {
+        // Convertir les données des images en chaînes de caractères
         if ($habitat->getImage() && is_resource($habitat->getImage()->getData())) {
             $imageData = stream_get_contents($habitat->getImage()->getData());
             $habitat->getImage()->setData($imageData);
         }
 
+        // Récupérer les animaux associés à cet habitat via le repository
+        $animals = $animalsRepository->findBy(['habitat' => $habitat]);
+
         return $this->render('habitats/show.html.twig', [
             'habitat' => $habitat,
-            'animals' => $habitat->getAnimals(),
+            'animals' => $animals,
         ]);
     }
 

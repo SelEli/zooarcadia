@@ -3,8 +3,7 @@
 {% block title %}Détails du service - Zoo Arcadia{% endblock %}
 
 {% block body %}
-    <div class="hero-scene text-center text-white bg-primary py-5">
-        <div class="hero-scene-content">
+
             <h1>Détails du service</h1>
         </div>
     </div>
@@ -13,7 +12,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <div class="card bg-dark text-white">
-                    <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
+                    {% if service.image %}
+                        <img src="data:{{ service.image.imageType }};base64,{{ service.image.data|base64_encode }}" class="card-img-top" alt="{{ service.name }}">
+                    {% else %}
+                        <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}"/>
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ service.name }}</h5>
                         <p class="card-text">{{ service.description }}</p>

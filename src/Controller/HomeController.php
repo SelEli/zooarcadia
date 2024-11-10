@@ -51,6 +51,17 @@ class HomeController extends AbstractController
             }
         }
 
+        foreach ($services as $service) {
+            if ($service->getImage()) {
+                $image = $service->getImage();
+                $imageData = $image->getData();
+                if (is_resource($imageData)) {
+                    $imageData = stream_get_contents($imageData);
+                }
+                $image->setData(base64_encode($imageData));
+            }
+        }
+
         return $this->render('home/index.html.twig', [
             'informations' => $informations,
             'comments' => $comments,
