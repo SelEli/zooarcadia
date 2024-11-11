@@ -17,26 +17,27 @@
                 <h5 class="card-title">{{ habitat.name }}</h5>
                 <p class="card-text">{{ habitat.description }}</p>
                 
-                <h2 class="text-primary text-center">Nos animaux</h2>
+                <h2 class="text-primary text-center">Les animaux de cet habitat</h2>
                 <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
                     <!-- Les animaux seront affichés ici -->
                     {% for animal in animals %}
                         <div class="col p-3">
-                            <div class="card bg-light text-black">
-                                {% if animal.image %}
-                                    <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data }}" class="card-img-top" alt="{{ animal.name }}">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ animal.name }}</h5>
+                            <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="text-decoration-none text-dark">
+                                <div class="card bg-light text-black">
+                                    {% if animal.image %}
+                                        <img src="data:{{ animal.image.imageType }};base64,{{ animal.image.data|base64_encode }}" class="card-img-top" alt="{{ animal.name }}">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ animal.name }}</h5>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     {% else %}
                         <div class="col-12">
                             <p class="text-center">No animals found</p>
                         </div>
                     {% endfor %}
-
 
                 <div class="d-flex justify-content-between mt-2">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Habitats;
-use App\Entity\Images;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\AnimalsRepository;
@@ -16,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/habitats')]
 final class HabitatsController extends AbstractController
 {
+    private $animalsController;
+
+    public function __construct(AnimalsController $animalsController)
+    {
+        $this->animalsController = $animalsController;
+    }
+
     #[Route(name: 'app_habitats_index', methods: ['GET'])]
     public function index(HabitatsRepository $habitatsRepository): Response
     {
@@ -81,6 +87,9 @@ final class HabitatsController extends AbstractController
 
         // Récupérer les animaux associés à cet habitat via le repository
         $animals = $animalsRepository->findBy(['habitat' => $habitat]);
+
+        // Convertir les images des animaux en chaînes de caractères via AnimalsController
+        $this->animalsController->convertImages($animals);
 
         return $this->render('habitats/show.html.twig', [
             'habitat' => $habitat,

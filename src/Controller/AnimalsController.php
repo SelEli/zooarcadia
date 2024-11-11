@@ -33,6 +33,16 @@ final class AnimalsController extends AbstractController
         ]);
     }
 
+    public function convertImages(array $animals): void { // Convertir les données des images des animaux en chaînes de caractères 
+        foreach ($animals as $animal) 
+        { 
+            if ($animal->getImage() && is_resource($animal->getImage()->getData())) { 
+                $imageData = stream_get_contents($animal->getImage()->getData());
+                $animal->getImage()->setData($imageData); 
+            } 
+        } 
+    }
+
     #[Route('/new', name: 'app_animals_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

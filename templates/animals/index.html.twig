@@ -24,8 +24,10 @@
                                 {{ truncated_description }}...
                             </p>
                             <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="btn btn-primary">Voir plus</a>
-                            <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-secondary">Éditer</a>
-                            {{ include('animals/_delete_form.html.twig', {'id': animal.id}) }}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-secondary">Éditer</a>
+                                {{ include('animals/_delete_form.html.twig', {'id': animal.id}) }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
