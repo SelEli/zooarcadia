@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Habitats;
+use App\Entity\Images;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\AnimalsRepository;
