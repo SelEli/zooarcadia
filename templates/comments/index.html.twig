@@ -3,10 +3,45 @@
 {% block title %}Commentaires{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-4">Commentaires</h1>
+            <h1 class="text-center my-4">Laissez-nous un commentaire</h1>
+            <p class="text-center">Il sera visible sur le site</p>
         </div>
     </div>
 
-    
+    <div class="container bg-secondary p-4">
+        <div class="list-group">
+            {% for comment in comments %}
+            <div class="list-group-item {% if loop.index is odd %}bg-light{% else %}bg-white{% endif %} my-3">
+                <h5 class="mb-1 text-primary">{{ comment.name }}</h5>
+                <p class="mb-1 text-dark">{{ comment.comment }}</p>
+                <small class="text-muted">{{ comment.date ? comment.date|date('Y-m-d') : '' }}</small>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="d-flex justify-content-center mt-3">
+                        <div class="btn-group" role="group">
+                            {% if not comment.isVisible %}
+                            <form method="post" action="{{ path('app_comments_validate', {'id': comment.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ comment.id) }}">
+                                <button type="submit" class="btn btn-success btn-sm mx-1">Valider</button>
+                            </form>
+                            {% endif %}
+                            <a href="{{ path('app_comments_edit', {'id': comment.id}) }}" class="btn btn-warning btn-sm mx-1">Éditer</a>
+                            <form method="post" action="{{ path('app_comments_delete', {'id': comment.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm mx-1">Supprimer</button>
+                            </form>
+                        </div>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="list-group-item bg-light my-3">
+                <p class="mb-1 text-dark">Aucun commentaire trouvé</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-3">
+                <a href="{{ path('app_comments_new') }}" class="btn btn-primary">Laisser un avis</a>
+        </div>
     </div>
+</div>
 {% endblock %}
