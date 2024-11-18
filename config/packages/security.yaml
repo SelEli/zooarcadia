@@ -28,19 +28,14 @@ security:
         - { path: ^/.*/\d+$, roles: PUBLIC_ACCESS } # Pour show
 
         # Utilisateurs Authentifiés
-        - { path: ^/tasks, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/races, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/images, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/(tasks|user|races|images|profile), roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/new$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
 
         # Administrateurs
-        - { path: ^/register, roles: ROLE_ADMIN }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/role, roles: ROLE_ADMIN }
+        - { path: ^/(register|admin|role), roles: ROLE_ADMIN }
+
 
 
 
