@@ -22,39 +22,7 @@ security:
 
 
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCESS }
 
-        - { path: ^/$, roles: PUBLIC_ACCESS }
-        - { path: ^/comments/new$, roles: PUBLIC_ACCESS }
-        - { path: ^/.*/\d+$, roles: PUBLIC_ACCESS } # Pour show
-        - { path: ^/comments, roles: PUBLIC_ACCESS }
-        - { path: ^/contact, roles: PUBLIC_ACCESS }
-
-        - { path: ^/comments/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/comments/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
-
-        - { path: ^/tasks, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/tasks/new$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/tasks/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/tasks/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/tasks/\d+$, roles: IS_AUTHENTICATED_FULLY } # Pour show
-
-        # Règles pour les services
-        - { path: ^/services/new$, roles: [ROLE_ADMIN, ROLE_EMPLOYEE] }
-        - { path: ^/services/\d+/edit$, roles: [ROLE_ADMIN, ROLE_EMPLOYEE] }
-        - { path: ^/services/\d+/delete$, roles: [ROLE_ADMIN, ROLE_EMPLOYEE] }
-        - { path: ^/services/\d+$, roles: [ROLE_ADMIN, ROLE_EMPLOYEE] } # Exemple pour show
-
-        # Règles générales pour toutes les autres routes
-        - { path: ^/.*/new$, roles: ROLE_ADMIN }
-        - { path: ^/.*/\d+/edit$, roles: ROLE_ADMIN }
-        - { path: ^/.*/\d+/delete$, roles: ROLE_ADMIN }
-        - { path: ^/.*/\d+$, roles: ROLE_ADMIN } # Exemple pour show
-
-        - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/register, roles: ROLE_ADMIN }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/role, roles: ROLE_ADMIN }
 
 
 
