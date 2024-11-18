@@ -2,9 +2,11 @@
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php [QSA,L]
+    RewriteRule ^ index.php [QSA,L]
 </IfModule>
 
-# Afficher les erreurs
-php_flag display_errors on
-php_value error_reporting 32767
+# Afficher les erreurs uniquement en environnement de développement
+<IfModule php7_module>
+    php_flag display_errors on
+    php_value error_reporting 32767
+</IfModule>
