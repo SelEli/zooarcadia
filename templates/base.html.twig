@@ -6,79 +6,118 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <link rel="stylesheet" href="scss/main.css" />
         {% endblock %}
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><i class="bi bi-tree"></i> Zoo Arcadia</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/habitats">Nos habitats</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/contact">Nous contacter</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/informations">Informations utiles</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/services">Nos services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/comments">Vos commentaires</a></li>
-                            {% if app.user %}
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon compte</a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="/tasks">Mes tâches</a></li>
-                                        <li><a class="dropdown-item" href="/user">Mon compte</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li class="nav-item"><a class="nav-link" href="/animals">Gérer les animaux</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/races">Gérer les espèces</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/images">Gérer les images</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <li class="nav-item"><a class="nav-link" href="/role">Gérer les rôles</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="/admin/user">Gérer les comptes</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                        {% endif %}
-                                        <li>
-                                            <form method="post" action="{{ path('app_logout') }}">
-                                                <button class="dropdown-item">Déconnexion</button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            {% else %}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <main id="main-page" class="">
-            <div class="hero-scene text-center text-white bg-primary py-5">
-                <div class="hero-scene-content">
-                    {% block body %}
-                    {% endblock %}
-                </div>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/"><i class="bi bi-tree"></i> Zoo Arcadia</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/habitats">Nos habitats</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contact">Nous contacter</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/informations">Informations utiles</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/services">Nos services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/comments">Vos commentaires</a>
+                  </li>
+                  {% if app.user %}
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Mon compte
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li><a class="dropdown-item" href="/tasks">Mes tâches</a></li>
+                              <li><a class="dropdown-item" href="/user">Mon compte</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/animals">Gérer les animaux</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/races">Gérer les espèces</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/images">Gérer les images</a>
+                              </li>
+                              <li><hr class="dropdown-divider"></li>
+                              {% if is_granted('ROLE_ADMIN') %}
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="/role">Gérer les rôles</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="/admin/user">Gérer les comptes</a>
+                                  </li>
+                                  <li><hr class="dropdown-divider"></li>
+                              {% endif %}
+                              <li>
+                                  <form method="post" action="{{ path('app_logout') }}">
+                                      <button class="dropdown-item">Déconnexion</button>
+                                  </form>
+                              </li>
+                          </ul>
+                      </li>
+                  {% else %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                      </li>
+                  {% endif %}
+                </ul>
+              </div>
             </div>
-        </main>
+          </nav>
+    </header>
 
-        <footer class="bg-dark text-white text-center footer">
-            <div class="row">
-                <div class="col-12 col-lg-4"><h3 class="text-primary">Nos horaires</h3><p>Lundi - Vendredi : 09:00 - 17:00</p></div>
-                <div class="col-6 col-lg-4"><h3 class="text-primary">Notre adresse</h3><p>Zoo Arcadia<br />5, route de Rennes<br />35380 Pinpom, France<br /></p></div>
-                <div class="col-6 col-lg-4"><h3 class="text-primary">Nous contacter</h3><p>Téléphone : 02 01 01 01 01<br />Email : contact@zoo-arcadia.com<br /></p></div>
+    <main id="main-page" class="">
+      <div class="hero-scene text-center text-white bg-primary py-5">
+        <div class="hero-scene-content">
+            {% block body %}
+            {% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white text-center footer">
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <h3 class="text-primary">Nos horaires</h3>
+                <p>Lundi - Vendredi : 09:00 - 17:00</p>
             </div>
-        </footer>
+            <div class="col-6 col-lg-4">
+                <h3 class="text-primary">Notre adresse</h3>
+                <p>Zoo Arcadia <br/>
+                    5, route de Rennes <br/>
+                    35380 Pinpom, France <br/>
+                </p>
+            </div>
+            <div class="col-6 col-lg-4">
+                <h3 class="text-primary">Nous contacter</h3>
+                <p>Téléphone : 02 01 01 01 01 <br/>
+                  Email : contact@zoo-arcadia.com <br />
+                </p>
+            </div>
+        </div>
+    </footer>
 
-        {% block javascripts %}
-            <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+    {% block javascripts %}
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+
     </body>
 </html>
