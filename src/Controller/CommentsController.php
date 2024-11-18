@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/comments')]
 class CommentsController extends AbstractController
 {
-    #[Route('/', name: 'app_comments_index', methods: ['GET'])]
+    #[Route(name: 'app_comments_index', methods: ['GET'])]
     public function index(CommentsRepository $commentsRepository): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
