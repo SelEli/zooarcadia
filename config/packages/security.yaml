@@ -28,6 +28,7 @@ security:
         - { path: ^/comments/new$, roles: PUBLIC_ACCESS }
         - { path: ^/.*/\d+$, roles: PUBLIC_ACCESS } # Pour show
         - { path: ^/comments, roles: PUBLIC_ACCESS }
+        - { path: ^/contact, roles: PUBLIC_ACCESS }
 
         - { path: ^/comments/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/comments/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
