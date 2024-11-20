@@ -2,27 +2,19 @@
 
 namespace App\Form;
 
-use App\Document\Comments;
+use App\Entity\Comments;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Bundle\SecurityBundle\Security;
 
 class CommentsType extends AbstractType
 {
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+<<<<<<< HEAD
             ->add('name', TextType::class, [
                 'label' => 'Nom',
             ])
@@ -38,6 +30,11 @@ class CommentsType extends AbstractType
                 'mapped' => true,
             ]);
         }
+=======
+            ->add('name', TextType::class)
+            ->add('comment', TextareaType::class);
+            // On n'inclut pas le champ 'isVisible' dans le formulaire de création
+>>>>>>> parent of aaf67b6 (Ajout du MongoDB pour Comments MVC)
     }
 
     public function configureOptions(OptionsResolver $resolver): void

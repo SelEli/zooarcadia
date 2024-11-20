@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Éditer le Commentaire{% endblock %}
+{% block title %}Edit Comments{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     <h1>Éditer le Commentaire</h1>
         </div>
     </div>
+=======
+    <h1>Edit Comments</h1>
+>>>>>>> parent of aaf67b6 (Ajout du MongoDB pour Comments MVC)
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-primary">Mettre à jour</button>
-    {{ form_end(form) }}
+    {{ include('comments/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_comments_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_comments_index') }}">back to list</a>
 
     {{ include('comments/_delete_form.html.twig') }}
 {% endblock %}

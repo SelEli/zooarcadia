@@ -3,17 +3,22 @@
 {% block title %}Nouveau Commentaire{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     <h1>Laisser un commentaire</h1>
     <p>Il sera visible sur le site</p>
             </div>
+=======
+        <h1>Laisser un commentaire</h1>
+            <p>Il sera visible sur le site</p>
+        </div>
+>>>>>>> parent of aaf67b6 (Ajout du MongoDB pour Comments MVC)
     </div>
     
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-primary">Enregistrer</button>
-    {{ form_end(form) }}
+    {{ include('comments/_form.html.twig') }}
 
-    <div class="text-center pt-3">
-        <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
+
+        <div class="text-center pt-3">
+            <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
+        </div>
     </div>
 {% endblock %}

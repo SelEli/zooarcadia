@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Document\Comments;
+use App\Entity\Comments;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class CommentsController extends AbstractController
             $comments = $commentsRepository->findAll();
         } else {
             // Visiteur public : retourne uniquement les commentaires visibles
-            $comments = $commentsRepository->findAllVisible();
+            $comments = $commentsRepository->findBy(['isVisible' => true]);
         }
 
         return $this->render('comments/index.html.twig', [
@@ -31,15 +31,15 @@ class CommentsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_comments_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DocumentManager $dm): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comments();
         $form = $this->createForm(CommentsType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $dm->persist($comment);
-            $dm->flush();
+            $entityManager->persist($comment);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -64,13 +64,13 @@ class CommentsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_comments_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Comments $comment, DocumentManager $dm): Response
+    public function edit(Request $request, Comments $comment, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommentsType::class, $comment); // Utilise le même formulaire
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $dm->flush();
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -82,21 +82,21 @@ class CommentsController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'app_comments_delete', methods: ['POST'])]
-    public function delete(Request $request, Comments $comment, DocumentManager $dm): Response
+    public function delete(Request $request, Comments $comment, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
-            $dm->remove($comment);
-            $dm->flush();
+            $entityManager->remove($comment);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/validate', name: 'app_comments_validate', methods: ['POST'])]
-    public function validate(Comments $comment, DocumentManager $dm): Response
+    public function validate(Comments $comment, EntityManagerInterface $entityManager): Response
     {
         $comment->setVisible(true);
-        $dm->flush();
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
     }

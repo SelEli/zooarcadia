@@ -2,26 +2,42 @@
 
 namespace App\Repository;
 
-use App\Document\Comments;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
+use App\Entity\Comments;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class CommentsRepository extends DocumentRepository
+/**
+ * @extends ServiceEntityRepository<Comments>
+ */
+class CommentsRepository extends ServiceEntityRepository
 {
-    protected $dm; // Mise à jour du niveau d'accès
-
-    public function __construct(DocumentManager $dm)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->dm = $dm;
-        parent::__construct($dm, $dm->getUnitOfWork(), $dm->getClassMetadata(Comments::class));
+        parent::__construct($registry, Comments::class);
     }
 
-    public function findAllVisible(): array
-    {
-        return $this->createQueryBuilder()
-            ->field('isVisible')->equals(true)
-            ->getQuery()
-            ->execute()
-            ->toArray();
-    }
+    //    /**
+    //     * @return Comments[] Returns an array of Comments objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('c.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Comments
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
