@@ -3,10 +3,8 @@
 {% block title %}Commentaires{% endblock %}
 
 {% block body %}
-            <h1 class="text-center my-4">Laissez-nous un commentaire</h1>
-            <p class="text-center">Il sera visible sur le site</p>
-        </div>
-    </div>
+    <h1 class="text-center my-4">Laissez-nous un commentaire</h1>
+    <p class="text-center">Il sera visible sur le site</p>
 
     <div class="container bg-secondary p-4">
         <div class="list-group">
@@ -40,8 +38,7 @@
             {% endfor %}
         </div>
         <div class="text-center pt-3">
-                <a href="{{ path('app_comments_new') }}" class="btn btn-primary">Laisser un avis</a>
+            <a href="{{ path('app_comments_new') }}" class="btn btn-primary">Laisser un avis</a>
         </div>
     </div>
-</div>
 {% endblock %}

@@ -3,16 +3,15 @@
 {% block title %}Nouveau Commentaire{% endblock %}
 
 {% block body %}
-        <h1>Laisser un commentaire</h1>
-            <p>Il sera visible sur le site</p>
-        </div>
-    </div>
+    <h1>Laisser un commentaire</h1>
+    <p>Il sera visible sur le site</p>
     
-    {{ include('comments/_form.html.twig') }}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
 
-
-        <div class="text-center pt-3">
-            <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
-        </div>
+    <div class="text-center pt-3">
+        <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
     </div>
 {% endblock %}
