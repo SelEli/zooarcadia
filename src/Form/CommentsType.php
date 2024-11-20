@@ -30,10 +30,12 @@ class CommentsType extends AbstractType
                 'label' => 'Commentaire',
             ]);
 
-        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_EMPLOYEE')) {
+        $comment = $options['data'];
+        if (($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_EMPLOYEE')) && !$comment->isVisible()) {
             $builder->add('isVisible', CheckboxType::class, [
                 'label' => 'Visible',
                 'required' => false,
+                'mapped' => true,
             ]);
         }
     }

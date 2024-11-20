@@ -11,7 +11,6 @@
     <div class="container p-4 bg-dark">
         <h2 class="text-primary text-center">Nos habitats</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="habitat-container">
-            <!-- Les habitats seront affichés ici -->
             {% for habitat in habitats %}
                 <div class="col p-3">
                     <div class="card bg-light text-black">
@@ -36,39 +35,36 @@
 
     <div class="bg-white py-4"></div>
 
-<div class="container p-4 bg-secondary text-white">
-    <h2 class="text-primary text-center">Nos services</h2>
-    <div class="row row-cols-2 row-cols-lg-3" id="service-container">
-        <!-- Les services seront affichés ici -->
-        {% for service in services %}
-            <div class="col p-3">
-                <div class="card bg-dark text-white">
-                    {% if service.image %}
-                        <img src="data:{{ service.image.imageType }};base64,{{ service.image.data }}" class="card-img-top" alt="{{ service.name }}">
-                    {% else %}
-                        <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ service.name }}</h5>
-                        <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+    <div class="container p-4 bg-secondary text-white">
+        <h2 class="text-primary text-center">Nos services</h2>
+        <div class="row row-cols-2 row-cols-lg-3" id="service-container">
+            {% for service in services %}
+                <div class="col p-3">
+                    <div class="card bg-dark text-white">
+                        {% if service.image %}
+                            <img src="data:{{ service.image.imageType }};base64,{{ service.image.data }}" class="card-img-top" alt="{{ service.name }}">
+                        {% else %}
+                            <img src="../images/vue-zoo.jpg" class="card-img-top" alt="{{ service.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service.name }}</h5>
+                            <a href="{{ path('app_services_show', {'id': service.id}) }}" class="btn btn-outline-light mt-2">Voir plus</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% else %}
-            <div class="col-12">
-                <p class="text-center">No services found</p>
-            </div>
-        {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">No services found</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
-
 
     <div class="bg-white py-4"></div>
 
     <div class="container p-4 bg-dark text-white">
         <h2 class="text-primary text-center">Nos animaux</h2>
         <div class="row row-cols-2 row-cols-lg-3" id="animal-container">
-            <!-- Les animaux seront affichés ici -->
             {% for animal in animals %}
                 <div class="col p-3">
                     <div class="card bg-light text-black">
@@ -130,26 +126,41 @@
 
     <div class="bg-white py-4"></div>
 
+    <!-- Section des commentaires, avec la même mise en forme que l'index des commentaires -->
     <div class="container p-4 bg-dark text-white">
         <h2 class="text-primary text-center">Vos commentaires</h2>
-        <div class="row row-cols-1 row-cols-md-2">
+        <div class="list-group">
             {% for comment in comments %}
-                <div class="col mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ comment.name }}</h5>
-                            <p class="card-text">{{ comment.comment }}</p>
+            <div class="list-group-item {% if loop.index is odd %}bg-light{% else %}bg-white{% endif %} my-3">
+                <h5 class="mb-1 text-primary">{{ comment.name }}</h5>
+                <p class="mb-1 text-dark">{{ comment.comment }}</p>
+                <small class="text-muted">{{ comment.date ? comment.date|date('Y-m-d') : '' }}</small>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="d-flex justify-content-center mt-3">
+                        <div class="btn-group" role="group">
+                            {% if not comment.isVisible %}
+                            <form method="post" action="{{ path('app_comments_validate', {'id': comment.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ comment.id) }}">
+                                <button type="submit" class="btn btn-success btn-sm mx-1">Valider</button>
+                            </form>
+                            {% endif %}
+                            <a href="{{ path('app_comments_edit', {'id': comment.id}) }}" class="btn btn-warning btn-sm mx-1">Éditer</a>
+                            <form method="post" action="{{ path('app_comments_delete', {'id': comment.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm mx-1">Supprimer</button>
+                            </form>
                         </div>
-                    </div>
                 </div>
+                {% endif %}
+            </div>
             {% else %}
-                <div class="col-12">
-                    <p class="text-center">No comments found</p>
-                </div>
+            <div class="list-group-item bg-light my-3">
+                <p class="mb-1 text-dark">Aucun commentaire trouvé</p>
+            </div>
             {% endfor %}
         </div>
-        <div class="d-flex justify-content-end text-center">
-            <a href="{{ path('app_comments_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
+        <div class="text-center pt-3">
+            <a href="{{ path('app_comments_new') }}" class="btn btn-primary">Laisser un avis</a>
         </div>
     </div>
 {% endblock %}

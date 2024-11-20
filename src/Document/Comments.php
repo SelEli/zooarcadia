@@ -59,20 +59,14 @@ class Comments
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setVisible(bool $isVisible): self
     {
-        $this->date = $date;
+        $this->isVisible = $isVisible;
         return $this;
     }
 
     public function isVisible(): ?bool
     {
         return $this->isVisible;
-    }
-
-    public function setVisible(bool $isVisible): self
-    {
-        $this->isVisible = $isVisible;
-        return $this;
     }
 }
