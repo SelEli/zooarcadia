@@ -8,11 +8,13 @@
         </div>
     </div>
     
-    {{ include('comments/_form.html.twig') }}
+    <div class="container bg-secondary p-4">
+        {{ include('comments/_form.html.twig') }}
 
 
-        <div class="text-center pt-3">
-            <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
+            <div class="text-center pt-3">
+                <a href="{{ path('app_comments_index') }}" class="btn btn-primary">Retour à la liste</a>
+            </div>
         </div>
     </div>
 {% endblock %}

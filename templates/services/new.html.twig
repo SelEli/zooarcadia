@@ -7,7 +7,9 @@
     </div>
 </div>
 
-    {{ include('services/_form.html.twig') }}
+    <div class="container bg-secondary p-4">
+        {{ include('services/_form.html.twig') }}
 
-    <a href="{{ path('app_services_index') }}">back to list</a>
+        <a href="{{ path('app_services_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}
