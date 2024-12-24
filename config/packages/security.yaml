@@ -22,19 +22,7 @@ security:
 
 
     access_control:
-        # Accès Public
-        - { path: ^/$, roles: PUBLIC_ACCESS }
-        - { path: ^/comments/new$, roles: PUBLIC_ACCESS }
-        - { path: ^/.*/\d+$, roles: PUBLIC_ACCESS } # Pour show
 
-        # Utilisateurs Authentifiés
-        - { path: ^/(tasks|user|races|images|profile), roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/.*/new$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/.*/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/.*/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }
-
-        # Administrateurs
-        - { path: ^/(register|admin|role), roles: ROLE_ADMIN }
 
 
 

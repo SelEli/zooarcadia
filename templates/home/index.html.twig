@@ -130,6 +130,7 @@
 
     <div class="bg-white py-4"></div>
 
+    <!--
     <div class="container p-4 bg-dark text-white">
         <h2 class="text-primary text-center">Vos commentaires</h2>
         <div class="row row-cols-1 row-cols-md-2">
@@ -152,4 +153,23 @@
             <a href="{{ path('app_comments_index') }}" class="btn btn-outline-light mt-2">Voir plus</a>
         </div>
     </div>
+    -->
+
+<div class="container p-4 bg-dark text-white">
+    <h2 class="text-primary text-center">Vos commentaires</h2>
+    <div id="comment-container" class="row row-cols-1 row-cols-md-2">
+        <!-- Les commentaires seront chargés ici -->
+    </div>
+    <div class="d-flex justify-content-center">
+        <button id="load-more-comments" class="btn btn-outline-light mt-2">Charger plus de commentaires</button>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('js/comments.js') }}"></script>
+{% endblock %}
+
+
 {% endblock %}

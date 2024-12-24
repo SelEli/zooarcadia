@@ -7,6 +7,7 @@ use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +29,24 @@ class CommentsController extends AbstractController
         return $this->render('comments/index.html.twig', [
             'comments' => $comments,
         ]);
+    }
+
+    #[Route('/load', name: 'app_comments_load', methods: ['GET'])]
+    public function loadComments(Request $request, CommentsRepository $commentsRepository): JsonResponse
+    {
+        $offset = $request->query->get('offset', 0);
+        $comments = $commentsRepository->findBy(['isVisible' => true], ['id' => 'DESC'], 10, $offset);
+    
+        $data = [];
+        foreach ($comments as $comment) {
+            $data[] = [
+                'id' => $comment->getId(),
+                'name' => $comment->getName(),
+                'comment' => $comment->getComment(),
+            ];
+        }
+    
+        return new JsonResponse($data);
     }
 
     #[Route('/new', name: 'app_comments_new', methods: ['GET', 'POST'])]
@@ -100,4 +119,6 @@ class CommentsController extends AbstractController
 
         return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
     }
+   
+    
 }
