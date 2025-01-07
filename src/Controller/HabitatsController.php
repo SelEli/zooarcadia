@@ -11,7 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Psr\Log\LoggerInterface;
 
 #[Route('/habitats')]
 final class HabitatsController extends AbstractController
@@ -141,5 +144,33 @@ final class HabitatsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/animals', name: 'app_habitats_animals', methods: ['GET'])]
+    public function getAnimals(Habitats $habitat, AnimalsRepository $animalsRepository, LoggerInterface $logger): Response
+    {
+        try {
+            $logger->info("Starting to load animals for habitat ID: {$habitat->getId()}");
+
+            // Récupère les animaux associés à cet habitat en appelant le contrôleur des animaux
+            $response = $this->forward('App\Controller\AnimalsController::getAnimalsByHabitat', [
+                'habitatId' => $habitat->getId()
+            ]);
+
+            $data = json_decode($response->getContent(), true);
+            $logger->info("Received data from AnimalsController: " . print_r($data, true));
+
+            $html = $this->renderView('habitats/_animals_list.html.twig', [
+                'animals' => $data['animals'],
+            ]);
+
+            $logger->info("Successfully rendered animals list for habitat ID: {$habitat->getId()}");
+
+            return new JsonResponse(['html' => $html]);
+
+        } catch (\Exception $e) {
+            $logger->error("Error loading animals for habitat ID: {$habitat->getId()}: " . $e->getMessage());
+            return new JsonResponse(['html' => '<p class="text-center text-danger">Error loading animals. Please try again later.</p>'], 500);
+        }
     }
 }

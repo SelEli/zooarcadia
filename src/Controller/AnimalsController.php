@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/animals')]
@@ -33,14 +34,15 @@ final class AnimalsController extends AbstractController
         ]);
     }
 
-    public function convertImages(array $animals): void { // Convertir les données des images des animaux en chaînes de caractères 
-        foreach ($animals as $animal) 
-        { 
-            if ($animal->getImage() && is_resource($animal->getImage()->getData())) { 
+    public function convertImages(array $animals): void
+    {
+        // Convertir les données des images des animaux en chaînes de caractères
+        foreach ($animals as $animal) {
+            if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
                 $imageData = stream_get_contents($animal->getImage()->getData());
-                $animal->getImage()->setData($imageData); 
-            } 
-        } 
+                $animal->getImage()->setData($imageData);
+            }
+        }
     }
 
     #[Route('/new', name: 'app_animals_new', methods: ['GET', 'POST'])]
@@ -134,11 +136,31 @@ final class AnimalsController extends AbstractController
     #[Route('/{id}', name: 'app_animals_delete', methods: ['POST'])]
     public function delete(Request $request, Animals $animal, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $animal->getId(), $request->request->get('_token'))) {
             $entityManager->remove($animal);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_animals_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/habitat/{habitatId}', name: 'app_animals_by_habitat', methods: ['GET'])]
+    public function getAnimalsByHabitat(int $habitatId, AnimalsRepository $animalsRepository): Response
+    {
+        $animals = $animalsRepository->findBy(['habitat' => $habitatId]);
+
+        // Convertir les images des animaux en chaînes de caractères
+        $this->convertImages($animals);
+
+        $animalData = [];
+        foreach ($animals as $animal) {
+            $animalData[] = [
+                'name' => $animal->getName(),
+                'imageType' => $animal->getImage()->getImageType(),
+                'imageData' => base64_encode($animal->getImage()->getData()),
+            ];
+        }
+
+        return new JsonResponse(['animals' => $animalData]);
     }
 }
