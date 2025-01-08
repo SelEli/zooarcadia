@@ -13,25 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Psr\Log\LoggerInterface;
 
 #[Route('/habitats')]
 final class HabitatsController extends AbstractController
 {
-    private $animalsController;
-
-    public function __construct(AnimalsController $animalsController)
-    {
-        $this->animalsController = $animalsController;
-    }
-
     #[Route(name: 'app_habitats_index', methods: ['GET'])]
     public function index(HabitatsRepository $habitatsRepository): Response
     {
         $habitats = $habitatsRepository->findAll();
 
-        // Convertir les données des images en chaînes de caractères
         foreach ($habitats as $habitat) {
             if ($habitat->getImage() && is_resource($habitat->getImage()->getData())) {
                 $imageData = stream_get_contents($habitat->getImage()->getData());
@@ -73,7 +64,7 @@ final class HabitatsController extends AbstractController
 
             return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        
         return $this->render('habitats/new.html.twig', [
             'habitat' => $habitat,
             'form' => $form->createView(),
@@ -83,17 +74,12 @@ final class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_show', methods: ['GET'])]
     public function show(Habitats $habitat, AnimalsRepository $animalsRepository): Response
     {
-        // Convertir les données des images en chaînes de caractères
         if ($habitat->getImage() && is_resource($habitat->getImage()->getData())) {
             $imageData = stream_get_contents($habitat->getImage()->getData());
             $habitat->getImage()->setData($imageData);
         }
 
-        // Récupérer les animaux associés à cet habitat via le repository
         $animals = $animalsRepository->findBy(['habitat' => $habitat]);
-
-        // Convertir les images des animaux en chaînes de caractères via AnimalsController
-        $this->animalsController->convertImages($animals);
 
         return $this->render('habitats/show.html.twig', [
             'habitat' => $habitat,
@@ -121,7 +107,7 @@ final class HabitatsController extends AbstractController
                 $image->setFilename($filename);
 
                 $entityManager->persist($image);
-                $habitat->setImage($image); // Assurez-vous que l'entité Habitats a une relation avec Images
+                $habitat->setImage($image);
             }
 
             $entityManager->flush();
@@ -138,7 +124,7 @@ final class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $habitat->getId(), $request->request->get('_token'))) {
             $entityManager->remove($habitat);
             $entityManager->flush();
         }
@@ -152,16 +138,25 @@ final class HabitatsController extends AbstractController
         try {
             $logger->info("Starting to load animals for habitat ID: {$habitat->getId()}");
 
-            // Récupère les animaux associés à cet habitat en appelant le contrôleur des animaux
-            $response = $this->forward('App\Controller\AnimalsController::getAnimalsByHabitat', [
-                'habitatId' => $habitat->getId()
-            ]);
+            $animals = $animalsRepository->findBy(['habitat' => $habitat]);
 
-            $data = json_decode($response->getContent(), true);
-            $logger->info("Received data from AnimalsController: " . print_r($data, true));
+            $animalData = [];
+            foreach ($animals as $animal) {
+                if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
+                    $imageData = stream_get_contents($animal->getImage()->getData());
+                    $animal->getImage()->setData($imageData);
+                }
+
+                $animalData[] = [
+                    'id' => $animal->getId(),
+                    'name' => $animal->getName(),
+                    'imageType' => $animal->getImage()->getImageType(),
+                    'imageData' => base64_encode($animal->getImage()->getData()),
+                ];
+            }
 
             $html = $this->renderView('habitats/_animals_list.html.twig', [
-                'animals' => $data['animals'],
+                'animals' => $animalData,
             ]);
 
             $logger->info("Successfully rendered animals list for habitat ID: {$habitat->getId()}");

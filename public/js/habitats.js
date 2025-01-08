@@ -1,7 +1,7 @@
-// /public/js/habitats.js
-
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
     const habitatCards = document.querySelectorAll('.card');
+    console.log('Habitat cards:', habitatCards);
 
     habitatCards.forEach(card => {
         card.addEventListener('click', function() {
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fetch(`/habitats/${habitatId}/animals`)
                 .then(response => {
+                    console.log('Response status:', response.status);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
@@ -19,7 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     console.log('Response data:', data);
-                    animalContainer.innerHTML = data.html;
+                    animalContainer.innerHTML = data.html;  // Assurez-vous que data.html contient le bon HTML pour les liens
+
+                    // Vérification des liens pour chaque animal
+                    const animalItems = animalContainer.querySelectorAll('.list-group-item');
+                    console.log('Animal items:', animalItems);
                 })
                 .catch(error => {
                     console.error('Error loading animals:', error);

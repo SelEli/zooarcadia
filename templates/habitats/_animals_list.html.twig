@@ -1,15 +1,18 @@
-{# habitats/_animals_list.html.twig #}
 {% if animals|length > 0 %}
-    {% for animal in animals %}
-        <div class="col p-3">
-            <div class="card bg-light text-black">
-                <img src="data:{{ animal.imageType }};base64,{{ animal.imageData }}" class="card-img-top" alt="{{ animal.name }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ animal.name }}</h5>
-                </div>
+    <div class="row">
+        {% for animal in animals %}
+            <div class="col-sm-6 col-md-4 col-lg-3 p-3">
+                <a href="{{ path('app_animals_show', {'id': animal.id}) }}" class="text-decoration-none">
+                    <div class="card bg-light text-black">
+                        <img src="data:{{ animal.imageType }};base64,{{ animal.imageData }}" class="card-img-top" alt="{{ animal.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ animal.name }}</h5>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% else %}
     <div class="col-12"><p class="text-center">No animals found</p></div>
 {% endif %}

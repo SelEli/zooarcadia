@@ -3,9 +3,6 @@
 {% block title %}Détail de l'Animal{% endblock %}
 
 {% block body %}
-        </div>
-    </div>
-
     <div class="container my-4">
         <div class="card mx-auto" style="width: 48rem;">
             {% if animal.image %}
@@ -20,7 +17,7 @@
                 <p class="card-text"><strong>Détails :</strong> {{ animal.details }}</p>
                 <p class="card-text"><strong>Nombre de clics :</strong> {{ animal.clicks }}</p>
                 {% if animal.habitat %}
-                    <p class="card-text"><strong>Habitat :</strong> <a href="{{ path('app_habitats_show', {'id': animal.habitat.id}) }}">{{ animal.habitat.name }}</a></p>
+                    <p class="card-text"><strong>Habitat :</strong> {{ animal.habitat.name }}</p>
                 {% else %}
                     <p class="card-text"><strong>Habitat :</strong> Non spécifié</p>
                 {% endif %}
@@ -31,14 +28,14 @@
                 {% endif %}
                 <div class="d-flex justify-content-between mt-2">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ path('app_animals_edit', {'id': animal.id}) }}" class="btn btn-warning">Éditer</a>
+                        <a href="{{ path('app_habitats_index') }}" class="btn btn-warning">Éditer</a>
                         {{ include('animals/_delete_form.html.twig', {'id': animal.id, 'btn_class': 'btn btn-danger'}) }}
                     {% endif %}
                 </div>
             </div>
         </div>
-                        <div class="text-center mt-4">
-                    <a href="{{ path('app_animals_index') }}" class="btn btn-primary">Retour à la liste</a>
-                </div>
+        <div class="text-center mt-4">
+            <a href="{{ path('app_habitats_index') }}" class="btn btn-primary">Retour aux habitats</a>
+        </div>
     </div>
 {% endblock %}

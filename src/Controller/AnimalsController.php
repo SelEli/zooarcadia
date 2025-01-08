@@ -36,7 +36,6 @@ final class AnimalsController extends AbstractController
 
     public function convertImages(array $animals): void
     {
-        // Convertir les données des images des animaux en chaînes de caractères
         foreach ($animals as $animal) {
             if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
                 $imageData = stream_get_contents($animal->getImage()->getData());
@@ -66,7 +65,7 @@ final class AnimalsController extends AbstractController
                 $image->setFilename($filename);
 
                 $entityManager->persist($image);
-                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+                $animal->setImage($image);
             }
 
             $entityManager->persist($animal);
@@ -84,13 +83,11 @@ final class AnimalsController extends AbstractController
     #[Route('/{id}', name: 'app_animals_show', methods: ['GET'])]
     public function show(Animals $animal, EntityManagerInterface $entityManager): Response
     {
-        // Convertir les données des images en chaînes de caractères
         if ($animal->getImage() && is_resource($animal->getImage()->getData())) {
             $imageData = stream_get_contents($animal->getImage()->getData());
             $animal->getImage()->setData($imageData);
         }
 
-        // Incrémenter le compteur de clics
         $animal->incrementClicks();
         $entityManager->flush();
 
@@ -119,7 +116,7 @@ final class AnimalsController extends AbstractController
                 $image->setFilename($filename);
 
                 $entityManager->persist($image);
-                $animal->setImage($image); // Assurez-vous que l'entité Animals a une relation avec Images
+                $animal->setImage($image);
             }
 
             $entityManager->flush();
@@ -148,13 +145,12 @@ final class AnimalsController extends AbstractController
     public function getAnimalsByHabitat(int $habitatId, AnimalsRepository $animalsRepository): Response
     {
         $animals = $animalsRepository->findBy(['habitat' => $habitatId]);
-
-        // Convertir les images des animaux en chaînes de caractères
         $this->convertImages($animals);
 
         $animalData = [];
         foreach ($animals as $animal) {
             $animalData[] = [
+                'id' => $animal->getId(),
                 'name' => $animal->getName(),
                 'imageType' => $animal->getImage()->getImageType(),
                 'imageData' => base64_encode($animal->getImage()->getData()),
