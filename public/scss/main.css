@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+/* Nouvelle couleur dynamique */
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -12039,4 +12040,17 @@ p {
 
 .bg-secondary {
   background-color: #F5DEB3;
+}
+
+.btn-custom {
+  background-color: #FF8C00 !important; /* Couleur dynamique */
+  color: #292222 !important;
+  border: none !important;
+  font-family: inherit !important; /* Utilisation de la police normale */
+  padding: 0.5em 1em !important; /* Ajout de padding pour augmenter la largeur */
+}
+
+.btn-custom:hover {
+  background-color: #ffa333 !important;
+  color: #A0522D !important;
 }/*# sourceMappingURL=main.css.map */

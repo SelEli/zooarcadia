@@ -28,7 +28,7 @@ security:
         - { path: ^/.*/\d+$, roles: PUBLIC_ACCESS } # Pour show
 
         # Utilisateurs Authentifiés
-        - { path: ^/(tasks|user|races|images|profile), roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/(tasks|user|races|images|profile|animals), roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/new$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/\d+/edit$, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/\d+/delete$, roles: IS_AUTHENTICATED_FULLY }

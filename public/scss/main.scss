@@ -17,7 +17,7 @@ footer.footer {
     width: 100%;
 }
 
-p{
+p {
     font-family: $font-family-text;
     font-size: 18px;
 }
@@ -25,7 +25,7 @@ p{
 .hero-scene {
     position: relative;
     margin-bottom: 100px;
-    
+
     &::before {
         content: "";
         position: absolute;
@@ -50,28 +50,25 @@ p{
         align-items: center;
         justify-content: center;
     }
-
 }
 
-.image-card{
-    position:relative;
-    &:hover{
+.image-card {
+    position: relative;
+    &:hover {
         .titre-image,
-        .action-image-buttons{
+        .action-image-buttons {
             opacity: 1;
         }
     }
 
-
-    .action-image-buttons{
-        position : absolute;
+    .action-image-buttons {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         padding: 5px;
         display: flex;
         justify-content: space-between;
-
         opacity: 0;
         transition: all 0.3s;
     }
@@ -84,3 +81,17 @@ p{
 .bg-secondary {
     background-color: $secondary;
 }
+
+.btn-custom {
+    background-color: $orange-dynamic !important; /* Couleur dynamique */
+    color: $black !important;
+    border: none !important;
+    font-family: inherit !important; /* Utilisation de la police normale */
+    padding: 0.5em 1em !important; /* Ajout de padding pour augmenter la largeur */
+}
+
+.btn-custom:hover {
+    background-color: lighten($orange-dynamic, 10%) !important;
+    color: $primary !important;
+}
+
