@@ -1,141 +1,101 @@
-# Zoo Arcadia
+# Zoo Arcadia — Application Web (Symfony)
 
-Bienvenue dans le dépôt du projet **Zoo Arcadia**. Ce projet a pour objectif de développer une application web robuste et facile d'utilisation, mettant en valeur le zoo Arcadia et ses nombreux habitants.
+Projet réalisé en autonomie complète dans le cadre d’un Bac+2.  
+Objectif : développer une application web permettant la gestion des animaux, habitats, services et utilisateurs du zoo Arcadia, avec une interface administrateur et une architecture claire.
 
-## Table des matières
+---
 
-- [Introduction](#introduction)
-- [Technologies Utilisées](#technologies-utilisées)
-- [Installation et Configuration](#installation-et-configuration)
-- [Utilisation](#utilisation)
-- [Structure du Projet](#structure-du-projet)
-- [Déploiement](#déploiement)
-- [Licence](#licence)
+## 🎯 Objectifs du projet
+- Appliquer les bases du développement web (MVC, CRUD, validation, sécurité).
+- Concevoir une architecture propre et maintenable.
+- Gérer un volume fonctionnel important (30+ entités).
+- Produire une documentation complète (schémas, PDF fournis dans le dépôt).
+- Réaliser l’ensemble du projet seul, à distance.
 
-## Introduction
+---
 
-L'application web Zoo Arcadia permet aux visiteurs de visualiser les animaux, leurs états, et les services offerts par le zoo. Elle dispose également d'une interface administrateur pour la gestion des contenus et des utilisateurs.
+## 🚀 Fonctionnalités principales
+- Gestion des animaux, habitats, services et états.
+- Interface administrateur sécurisée (rôles et permissions).
+- CRUD complets avec validation.
+- Double base de données :
+  - MySQL (relationnel)
+  - MongoDB (contenus non structurés)
+- Authentification Symfony.
+- Gestion des utilisateurs (admin, employé, vétérinaire).
 
-## Technologies Utilisées
+---
 
-- **Front-End** : HTML5, CSS3 (Bootstrap), JavaScript
-- **Back-End** : PHP (Symfony)
-- **Base de données** : MySQL pour la base de données relationnelle, MongoDB pour la base de données NoSQL
-- **Déploiement** : Heroku
+## 🧱 Architecture & Structure du projet
 
-## Installation et Configuration
+### Structure principale du dépôt
+- `src/` — contrôleurs, entités, services  
+- `templates/` — vues Twig  
+- `public/` — assets publics  
+- `config/` — configuration Symfony  
+- `migrations/` — migrations Doctrine  
+- `assets/` — JS/CSS (Webpack Encore)  
+- `docker-compose.yml` — environnement Docker  
+- `Documentation Technique du Projet ECF – Zoo Arcadia.pdf` — documentation technique  
+- `Diagramme sans nom.drawio` — schémas d’architecture  
+- `Gestion de Projet du Zoo Arcadia.pdf` — organisation et planning  
+- `Manuel d'Utilisation de l'Application Zoo Arcadia.pdf` — guide utilisateur  
 
-### Prérequis
+Ces fichiers montrent la structure du projet, la conception fournie et la documentation associée.
 
-Assurez-vous d'avoir les outils suivants installés sur votre machine :
-- [WAMP](https://www.wampserver.com/en/)
-- [Node.js](https://nodejs.org/)
-- [Symfony CLI](https://symfony.com/download)
+---
 
-### Installation
+## 🛠️ Stack technique
+- Back-End : PHP 8 · Symfony  
+- Front-End : HTML5 · CSS3 (Bootstrap) · JavaScript  
+- Bases de données : MySQL · MongoDB  
+- Outils : Composer · Webpack Encore · Symfony CLI  
+- Déploiement : Heroku  
+- Environnement : Docker (optionnel)
 
-1. Clonez le dépôt GitHub :
-   ```cmd
-   git clone https://github.com/votre-utilisateur/zoo-arcadia.git
-   cd zoo-arcadia
+---
 
+## ⚙️ Installation & exécution
 
-2. Installez les dépendances PHP et JavaScript :
-
-cmd
+### 1. Installer les dépendances
+```
 composer install
 npm install
+```
 
-3. Configurez les fichiers d'environnement :
+### 2. Configurer l’environnement
+Créer un fichier `.env.local` et renseigner les accès MySQL.
 
-Dupliquez le fichier .env en .env.local et configurez les variables d'environnement pour la base de données MySQL.
-
-4. Installez les assets avec Webpack Encore :
-
-cmd
+### 3. Compiler les assets
+```
 npm run dev
-C
+```
 
-### Configuration de la base de données
-
-1. Créez la base de données :
-
-cmd
+### 4. Créer la base et appliquer les migrations
+```
 php bin/console doctrine:database:create
-
-2. Appliquez les migrations :
-
-cmd
 php bin/console doctrine:migrations:migrate
+```
 
-3. Chargez les fixtures (données de test) si besoin:
-
-cmd
-php bin/console doctrine:fixtures:load
-
-## Utilisation
-
-### Démarrer le serveur local
-
-Pour démarrer le serveur local Symfony, exécutez la commande suivante :
-
+### 5. Lancer le serveur
+```
 symfony serve
+```
 
-Accédez à l'application via http://localhost:8000.
+---
 
-### Identifiants de Test
+## 👤 Rôle & responsabilités
+Projet réalisé seul, à distance :
+- Compréhension et application de l’énoncé fourni.
+- Conception de l’architecture (schémas, organisation).
+- Développement complet (front + back).
+- Gestion des données (MySQL + MongoDB).
+- Documentation (PDF, schémas, manuel utilisateur).
+- Déploiement Heroku.
 
-Utilisez les identifiants suivants pour accéder aux différentes interfaces :
+Ce projet montre ma capacité à suivre une architecture, à structurer un projet complet et à livrer une application fonctionnelle en autonomie.
 
-Administrateur :
-Email : admin@zoo-arcadia.com
-Mot de passe : admin123
+---
 
-Employé :
-Email : employe@zoo-arcadia.com
-Mot de passe : employe123
-
-Vétérinaire :
-Email : veterinaire@zoo-arcadia.com
-Mot de passe : vet123
-
-## Structure du Projet
-
-La structure du projet est organisée comme suit :
-
-
-/racineServeur/
-├── assets          # Fichiers CSS, JavaScript et SASS
-├── bin             # Fichiers exécutables
-├── config          # Fichiers de configuration
-├── public          # Répertoire public (root du serveur web)
-├── src             # Code source PHP (contrôleurs, entités, repositories, services)
-├── templates       # Templates Twig
-├── translations    # Fichiers de traduction
-├── var             # Fichiers temporaires (logs, cache)
-├── vendor          # Dépendances PHP
-├── README.md       # Documentation du projet
-└── .env            # Fichier d'environnement
-
-### Déploiement
-
-Pour déployer l'application sur Heroku, suivez les étapes ci-dessous :
-
-1. Initialisez un dépôt Git et créez une nouvelle application sur Heroku :
-
-git init
-heroku create nom_de_votre_application
-git add .
-git commit -m "Initial commit"
-git push heroku main
-
-2. Configurez les variables d'environnement sur Heroku :
-
-heroku config:set DATABASE_URL=mysql://user:password@hostname:port/dbname
-
-3. Exécutez les migrations de la base de données sur Heroku :
-
-heroku run php bin/console doctrine:migrations:migrate
-
-## Licence
-Ne pas réutiliser sans préciser l'auteur.
+## 📄 Licence
+Ne pas réutiliser sans préciser l’auteur.
