@@ -5,6 +5,17 @@ Objectif : développer une application web permettant la gestion des animaux, ha
 
 ---
 
+## 📚 Table des matières
+- [Objectifs du projet](#-objectifs-du-projet)
+- [Fonctionnalités principales](#-fonctionnalités-principales)
+- [Architecture & Structure du projet](#-architecture--structure-du-projet)
+- [Stack technique](#-stack-technique)
+- [Installation & exécution](#-installation--exécution)
+- [Rôle & responsabilités](#-rôle--responsabilités)
+- [Licence](#-licence)
+
+---
+
 ## 🎯 Objectifs du projet
 - Appliquer les bases du développement web (MVC, CRUD, validation, sécurité).
 - Concevoir une architecture propre et maintenable.
@@ -36,10 +47,12 @@ Objectif : développer une application web permettant la gestion des animaux, ha
 - `migrations/` — migrations Doctrine  
 - `assets/` — JS/CSS (Webpack Encore)  
 - `docker-compose.yml` — environnement Docker  
-- `Documentation Technique du Projet ECF – Zoo Arcadia.pdf` — documentation technique  
-- `Diagramme sans nom.drawio` — schémas d’architecture  
-- `Gestion de Projet du Zoo Arcadia.pdf` — organisation et planning  
-- `Manuel d'Utilisation de l'Application Zoo Arcadia.pdf` — guide utilisateur  
+
+### Documentation & schémas inclus
+- `Documentation Technique du Projet ECF – Zoo Arcadia.pdf`  
+- `Diagramme sans nom.drawio` (schémas d’architecture)  
+- `Gestion de Projet du Zoo Arcadia.pdf`  
+- `Manuel d'Utilisation de l'Application Zoo Arcadia.pdf`  
 
 Ces fichiers montrent la structure du projet, la conception fournie et la documentation associée.
 
